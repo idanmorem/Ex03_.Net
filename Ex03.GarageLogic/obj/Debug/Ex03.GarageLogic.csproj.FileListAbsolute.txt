@@ -1,0 +1,2 @@
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.csproj.AssemblyReference.cache
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.csproj.CoreCompileInputs.cache
