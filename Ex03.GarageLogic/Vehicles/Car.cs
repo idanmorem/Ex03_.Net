@@ -5,11 +5,7 @@
           private eCarColor m_Color;
           private eNumberOfDoors m_NumberOfDoors = eNumberOfDoors.FourDoors;
 
-          public Car (string i_ModelName, string i_LiscenceNumber, eCarColor i_Color, eNumberOfDoors i_NumberOfDoors) : base(i_ModelName, i_LiscenceNumber, Wheel.eNumberOfWheels.FourWheels)
-          {
-               Color = i_Color;
-               NumberOfDoors = i_NumberOfDoors;
-          }
+          public Car() : base(Wheel.eNumberOfWheels.FourWheels) { }
 
           public eCarColor Color
           {

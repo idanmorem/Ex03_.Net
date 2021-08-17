@@ -2,8 +2,7 @@
 {
      public abstract class Vehicle
      {
-          private string r_ModelName;
-          private string r_LiscenceNumber;
+          private string m_ModelName;
           private Wheel[] m_Wheels; // TODO: set the wheels
           private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
           private string m_OwnersName;
@@ -27,12 +26,8 @@
 
           public string ModelName
           {
-               get => r_ModelName;
-          }
-
-          public string LiscenceNumber
-          {
-               get => r_LiscenceNumber;
+               get => m_ModelName;
+               set => m_ModelName = value;
           }
 
           public Wheel.eNumberOfWheels NumberOfWheels
@@ -62,6 +57,13 @@
           {
                get => m_CurrentEngine;
                set => m_CurrentEngine = value;
+          }
+
+          public enum eVehicleType
+          {
+               Car,
+               Motorcycle,
+               Truck
           }
      }
 }

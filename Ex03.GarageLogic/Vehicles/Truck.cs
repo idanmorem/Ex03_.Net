@@ -5,10 +5,7 @@
           private float m_MaxLoad;
           private bool m_IsContainingDangerousMaterials;
 
-          public Truck(string i_ModelName, string i_LiscenceNumber, Wheel.eNumberOfWheels i_NumberOfWheels, float i_MaxLoad, bool IsContainingDangerousMaterials) : base(i_ModelName, i_LiscenceNumber, Wheel.eNumberOfWheels.SixteenWheels)
-          {
-
-          }
+          public Truck() : base(Wheel.eNumberOfWheels.SixteenWheels) { }
 
           public float MaxLoad
           {

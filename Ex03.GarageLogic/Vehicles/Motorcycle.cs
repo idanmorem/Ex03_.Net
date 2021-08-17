@@ -5,10 +5,8 @@
           private eLiscenceType m_LiscenceType;
           private int m_EngineSize;
 
-          public Motorcycle(string i_ModelName, string i_LiscenceNumber, Wheel.eNumberOfWheels i_NumberOfWheels, eLiscenceType i_LiscenceType, int i_EngineSize) : base(i_ModelName, i_LiscenceNumber, i_NumberOfWheels)
-          {
+          public Motorcycle() : base(Wheel.eNumberOfWheels.TwoWheels) { }
 
-          }
 
           public int EngineSize
           {
