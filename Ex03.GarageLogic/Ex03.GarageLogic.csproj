@@ -36,16 +36,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="ElectricEngine.cs" />
-    <Compile Include="Engine.cs" />
-    <Compile Include="FuelEngine.cs" />
+    <Compile Include="Vehicles\Car.cs" />
+    <Compile Include="CarParts\ElectricEngine.cs" />
+    <Compile Include="CarParts\Engine.cs" />
+    <Compile Include="CarParts\FuelEngine.cs" />
     <Compile Include="GarageLogic.cs" />
-    <Compile Include="Motorcycle.cs" />
-    <Compile Include="Truck.cs" />
+    <Compile Include="Vehicles\Motorcycle.cs" />
+    <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Compile Include="Wheel.cs" />
+    <Compile Include="Vehicles\Vehicle.cs" />
+    <Compile Include="CarParts\Wheel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
