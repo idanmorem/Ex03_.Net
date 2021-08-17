@@ -15,6 +15,10 @@
                m_Status = eVehicleStatus.InProgress;
                r_NumberOfWheels = i_NumberOfWheels;
                m_Wheels = new Wheel[(int)i_NumberOfWheels];
+               for(int i = 0; i < (int)i_NumberOfWheels; i++)
+               {
+                    m_Wheels[i] = new Wheel();
+               }
           }
 
           public enum eVehicleStatus
@@ -22,6 +26,11 @@
                InProgress,
                Fixed,
                Paid
+          }
+
+          public Wheel[] Wheels
+          {
+               get => m_Wheels;
           }
 
           public string ModelName

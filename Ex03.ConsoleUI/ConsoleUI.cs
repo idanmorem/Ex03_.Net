@@ -69,7 +69,7 @@ namespace Ex03.ConsoleUI
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.FillElectricMotor)
                {
-                    getFillElectricMotorInput();
+                    FillElectricMotorInput();
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.ExhibitSpecificCar)
                {
@@ -88,15 +88,33 @@ namespace Ex03.ConsoleUI
                throw new NotImplementedException();
           }
 
-          private void getFillElectricMotorInput()
+          private void FillElectricMotorInput()
           {
-               throw new NotImplementedException();
+               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               string LicenseNumber = Console.ReadLine();
+               Console.WriteLine("Hello! Please choose the amount of hours to fill, followed by an ENTER.");
+               string amountToFill = Console.ReadLine();
+               //check validity
+               m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
           }
 
           private void FillGasMotor()
           {
-               //1. gets input
-               // m_GarageLogic.getEnergy()
+               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               string LicenseNumber = Console.ReadLine();
+               Console.WriteLine("Hello! Please choose a fuel type for the vehicle, followed by an ENTER.");
+               int i = 0;
+               foreach (FuelEngine.eFuelType Type in Enum.GetValues(typeof(FuelEngine.eFuelType)))
+               {
+                    Console.WriteLine("Press {0} to insert a {1}", i, Type.ToString());
+                    ++i;
+               }
+               string newFuelType = Console.ReadLine();
+               //check validity
+               Console.WriteLine("Hello! Please choose the amount of fuel to fill, followed by an ENTER.");
+               string amountToFill = Console.ReadLine();
+               //check validity
+               m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
           }
 
           private void getAddTirePressureInput()
@@ -106,7 +124,18 @@ namespace Ex03.ConsoleUI
 
           private void getChangeVehicleStateConsoleInput()
           {
-               throw new NotImplementedException();
+               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               string LicenseNumber = Console.ReadLine();
+               //check validation
+               int i = 0;
+               foreach (Vehicle.eVehicleStatus Status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
+               {
+                    Console.WriteLine("Press {0} to change the vehicle status to {1}", i, Status.ToString());
+                    ++i;
+               }
+               string NewStatus = Console.ReadLine();
+               m_GarageLogic.ChangeStatus(LicenseNumber, (Vehicle.eVehicleStatus)Enum.Parse(typeof(Vehicle.eVehicleStatus), NewStatus));
+
           }
 
           private void getListLicencedVehiclesConsoleInput()
@@ -125,25 +154,42 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("Press {0} to insert a {1}", i, Type.ToString());
                     ++i;
                }
-
                string vehicleType = Console.ReadLine();
                checkValidVehicleInput(vehicleType);
                Vehicle newVehicle = m_GarageLogic.CreateVehicle((Vehicle.eVehicleType)Enum.Parse(typeof(Vehicle.eVehicleType), vehicleType));
+               
                Console.WriteLine("Hello! Please enter the model name, followed by an ENTER.");
                string ModelName = Console.ReadLine();
                //check validation
                newVehicle.ModelName = ModelName;
+               
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                //check validation
+               
                Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
-               string ModelName = Console.ReadLine();
+               string OwnerName = Console.ReadLine();
                //check validation
-               newVehicle.ModelName = ModelName;
+               newVehicle.OwnersName = OwnerName;
+               
+               Console.WriteLine("Hello! Please enter the owner number, followed by an ENTER.");
+               string PhoneNumber = Console.ReadLine();
+               //check validation
+               newVehicle.OwnersPhoneNumber = PhoneNumber;
+
+               Console.WriteLine("Hello! Please choose an engine, followed by an ENTER.");
+               i = 0;
+               foreach (Engine.eEngineType Type in Enum.GetValues(typeof(Engine.eEngineType)))
+               {
+                    Console.WriteLine("Press {0} to insert a {1}", i, Type.ToString());
+                    ++i;
+               }
+               string EngineType = Console.ReadLine();
+               //check validation
+               m_GarageLogic.AddEngine(newVehicle, (Engine.eEngineType)Enum.Parse(typeof(Engine.eEngineType), EngineType));
 
                //in the end
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
-
           }
 
           private void checkValidVehicleInput(string i_input)

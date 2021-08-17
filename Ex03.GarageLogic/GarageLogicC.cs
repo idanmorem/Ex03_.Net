@@ -32,6 +32,11 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.Add(i_LicenseNumber, i_Vehicle);
           }
 
+          public void AddEngine(Vehicle i_Vehicle, Engine.eEngineType i_Type)
+          {
+               r_Factory.AddEngine(i_Vehicle, i_Type);
+          }
+
           //func no. 1
           public Vehicle CreateVehicle(Vehicle.eVehicleType i_Type)
           {

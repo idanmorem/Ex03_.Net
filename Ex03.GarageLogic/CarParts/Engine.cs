@@ -10,5 +10,11 @@
           }
 
           public abstract float CalcEnergyPercent();
+
+          public enum eEngineType
+          {
+               Fuel,
+               Electric
+          }       
      }
 }

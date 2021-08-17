@@ -30,7 +30,7 @@
                return ((m_CurrentFuelAmount / m_MaxFuelAmount) * 100);
           }
 
-          public FuelEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)
+          public FuelEngine()
           {
 
           }
