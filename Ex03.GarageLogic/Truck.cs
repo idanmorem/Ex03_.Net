@@ -1,30 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
      class Truck : Vehicle
      {
           private float m_MaxLoad;
           private bool m_IsContainingDangerousMaterials;
 
-          public Truck(string i_LiscenceNumber, Wheel.eNumberOfWheels i_NumberOfWheels, float i_MaxLoad, bool IsContainingDangerousMaterials) : base(i_LiscenceNumber, i_NumberOfWheels)
+          public Truck(string i_ModelName, string i_LiscenceNumber, Wheel.eNumberOfWheels i_NumberOfWheels, float i_MaxLoad, bool IsContainingDangerousMaterials) : base(i_ModelName, i_LiscenceNumber, Wheel.eNumberOfWheels.SixteenWheels)
           {
-               try
-               {
-                    if (i_MaxLoad >= 0)
-                    {
-                         m_MaxLoad = i_MaxLoad;
-                    }
-               }
-               catch (ValueOutOfRangeException i_ValueOutOfRangeException)
-               {
-                    Console.WriteLine("Catching ValueOutOfRangeException:");
 
-               }
           }
 
           public float MaxLoad

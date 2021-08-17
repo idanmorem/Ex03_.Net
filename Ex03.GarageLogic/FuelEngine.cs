@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
      public class FuelEngine : Engine
      {
@@ -19,20 +13,12 @@ namespace Ex03.GarageLogic
 
           public FuelEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)
           {
-               try
-               {
-                    if (i_CurrentFuelAmount <= i_MaxFuelAmount && i_CurrentFuelAmount >= 0 && i_MaxFuelAmount >= 0)
-                    {
-                         CurrentFuelAmount = i_CurrentFuelAmount;
-                         MaxFuelAmount = i_MaxFuelAmount;
-                         FuelType = i_FuelType;
-                    }
-               }
-               catch (ValueOutOfRangeException i_ValueOutOfRangeException)
-               {
-                    Console.WriteLine("Catching ValueOutOfRangeException:");
 
-               }
+          }
+
+          public abstract float CalcEnergyPercent // overriding the base
+          {
+               return (m_CurrentFuelAmount / m_MaxFuelAmount) * 100;
           }
 
           public eFuelType FuelType

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
      public class ElectricEngine : Engine
      {
@@ -18,19 +12,7 @@ namespace Ex03.GarageLogic
 
           public ElectricEngine(float i_BatteryTimeLeft, float i_MaxBatteryTime)
           {
-               try
-               {
-                    if(i_BatteryTimeLeft <= i_MaxBatteryTime && i_BatteryTimeLeft >= 0 && i_MaxBatteryTime >= 0)
-                    {
-                         BatteryTimeLeft = i_BatteryTimeLeft;
-                         MaxBatteryTime = i_MaxBatteryTime;
-                    }
-               }
-               catch (ValueOutOfRangeException i_ValueOutOfRangeException)
-               {
-                    Console.WriteLine("Catching ValueOutOfRangeException:");
 
-               }
           }
 
 

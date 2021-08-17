@@ -8,20 +8,7 @@
 
           public Wheel (string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
           {
-               try
-               {
-                    if (i_CurrentAirPressure <= i_MaxAirPressure && i_CurrentAirPressure >= 0 && i_MaxAirPressure >= 0)
-                    {
-                         CurrentAirPressure = i_CurrentAirPressure;
-                         ManufacturerName = i_ManufacturerName;
-                         MaxAirPressure = i_MaxAirPressure;
-                    }
-               }
-               catch (ValueOutOfRangeException i_ValueOutOfRangeException)
-               {
-                    Console.WriteLine("Catching ValueOutOfRangeException:");
 
-               }
           }
 
           private void AddAir(float i_AmountOfAirToAdd)

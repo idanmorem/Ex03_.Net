@@ -1,8 +1,7 @@
-﻿
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
-     class GarageLogic
+     public class GarageLogic
      {
-
+          //functions 1-7 according to the doc
      }
 }

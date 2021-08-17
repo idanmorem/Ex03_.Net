@@ -2,9 +2,8 @@
 {
      public abstract class Vehicle
      {
-          private string m_ModelName;
-          private readonly string r_LiscenceNumber;
-          private float m_EnergyPercent;
+          private string r_ModelName;
+          private string r_LiscenceNumber;
           private Wheel[] m_Wheels; // TODO: set the wheels
           private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
           private string m_OwnersName;
@@ -12,10 +11,9 @@
           private eVehicleStatus m_Status;
           private Engine m_CurrentEngine;
 
-          public Vehicle(string i_LiscenceNumber, Wheel.eNumberOfWheels i_NumberOfWheels)
+          public Vehicle(Wheel.eNumberOfWheels i_NumberOfWheels)
           {
-
-               r_LiscenceNumber = i_LiscenceNumber;
+               m_Status = eVehicleStatus.InProgress;
                r_NumberOfWheels = i_NumberOfWheels;
                m_Wheels = new Wheel[(int)i_NumberOfWheels];
           }
@@ -29,19 +27,12 @@
 
           public string ModelName
           {
-               get => m_ModelName;
-               set => m_ModelName = value;
+               get => r_ModelName;
           }
 
           public string LiscenceNumber
           {
                get => r_LiscenceNumber;
-          }
-
-          public float EnergyPercent
-          {
-               get => m_EnergyPercent;
-               set => m_EnergyPercent = value;
           }
 
           public Wheel.eNumberOfWheels NumberOfWheels
