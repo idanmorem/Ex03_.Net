@@ -63,7 +63,7 @@ namespace Ex03.ConsoleUI
              }
              else if (i_GetCurrentOperation == GarageLogic.GarageLogic.eGarageOperations.FillGasMotor)
              {
-                 getFillGasMotorInput();
+                 FillGasMotor();
              }
              else if (i_GetCurrentOperation == GarageLogic.GarageLogic.eGarageOperations.FillElectricMotor)
              {
@@ -91,9 +91,10 @@ namespace Ex03.ConsoleUI
             throw new NotImplementedException();
         }
 
-        private void getFillGasMotorInput()
+        private void FillGasMotor()
         {
-            throw new NotImplementedException();
+           //1. gets input
+           m_GarageLogic.getEnergy()
         }
 
         private void getAddTirePressureInput()
