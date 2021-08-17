@@ -6,14 +6,21 @@
           private float m_CurrentAirPressure;
           private float m_MaxAirPressure;
 
-          public Wheel (string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+          public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
           {
 
           }
 
           private void AddAir(float i_AmountOfAirToAdd)
           {
-               //...
+               if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure)
+               {
+                    m_CurrentAirPressure = m_CurrentAirPressure + i_AmountOfAirToAdd;
+               }
+               else
+               {
+                    throw new ValueOutOfRangeException();
+               }
           }
 
           public string ManufacturerName

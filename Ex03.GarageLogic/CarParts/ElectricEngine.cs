@@ -5,7 +5,7 @@
           private float m_BatteryTimeLeft;
           private float m_MaxBatteryTime;
 
-          private void charge(float i_AmountOfTimeToAdd)
+          public void Charge(float i_AmountOfTimeToAdd)
           {
                if ((m_BatteryTimeLeft + i_AmountOfTimeToAdd) <= m_MaxBatteryTime)
                {
@@ -47,7 +47,7 @@
                get => m_MaxBatteryTime;
                set
                {
-                    if(value < 0)
+                    if (value < 0)
                     {
                          throw new ValueOutOfRangeException();
                     }

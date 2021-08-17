@@ -6,7 +6,7 @@
           private float m_CurrentFuelAmount;
           private float m_MaxFuelAmount;
 
-          private void AddFuel(float i_AmountOfFuelToAdd, eFuelType i_FuelType)
+          public void AddFuel(float i_AmountOfFuelToAdd, eFuelType i_FuelType)
           {
                if(i_FuelType == m_FuelType) // checking if same fuel type
                {
