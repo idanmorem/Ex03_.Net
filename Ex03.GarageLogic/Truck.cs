@@ -13,7 +13,17 @@
           public float MaxLoad
           {
                get => m_MaxLoad;
-               set => m_MaxLoad = value;
+               set
+               {
+                    if(value < 0)
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+                    else
+                    {
+                         m_MaxLoad = value;
+                    }
+               }
           }
 
           public bool IsContainingDangerousMaterials

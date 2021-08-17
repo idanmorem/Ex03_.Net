@@ -9,6 +9,6 @@
                get => m_EnergyPercent;
           }
 
-          public abstract float CalcEnergyPercent;
+          public abstract float CalcEnergyPercent();
      }
 }

@@ -7,25 +7,59 @@
 
           private void charge(float i_AmountOfTimeToAdd)
           {
-               //...
+               if ((m_BatteryTimeLeft + i_AmountOfTimeToAdd) <= m_MaxBatteryTime)
+               {
+                    m_BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
+               }
+               else
+               {
+                    throw new ValueOutOfRangeException();
+               }
           }
 
-          public ElectricEngine(float i_BatteryTimeLeft, float i_MaxBatteryTime)
+          public override float CalcEnergyPercent()
           {
-
+               return ((m_BatteryTimeLeft / m_MaxBatteryTime) * 100);
           }
-
 
           public float BatteryTimeLeft
           {
                get => m_BatteryTimeLeft;
-               set => m_BatteryTimeLeft = value;
+               set
+               {
+                    if (value < 0)
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+                    else if (value > m_MaxBatteryTime)
+                    {
+                         throw new System.ArgumentException();
+                    }
+                    else
+                    {
+                         m_BatteryTimeLeft = value;
+                    }
+               }
           }
 
           public float MaxBatteryTime
           {
                get => m_MaxBatteryTime;
-               set => m_MaxBatteryTime = value;
+               set
+               {
+                    if(value < 0)
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+                    else if (value < m_BatteryTimeLeft)
+                    {
+                         throw new System.ArgumentException();
+                    }
+                    else
+                    {
+                         m_MaxBatteryTime = value;
+                    }
+               }
           }
      }
 }

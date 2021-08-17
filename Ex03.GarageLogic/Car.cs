@@ -20,7 +20,17 @@
           public eNumberOfDoors NumberOfDoors
           {
                get => m_NumberOfDoors;
-               set => m_NumberOfDoors = value;
+               set
+               {
+                    if (value <= eNumberOfDoors.FiveDoors && value >= eNumberOfDoors.TwoDoors)
+                    {
+                         m_NumberOfDoors = value;
+                    }
+                    else
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+               }
           }
 
           public enum eCarColor
