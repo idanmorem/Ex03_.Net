@@ -36,15 +36,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
+    <Compile Include="Vehicles\Car.cs" />
     <Compile Include="CarParts\Engine\ElectricEngine.cs" />
     <Compile Include="CarParts\Engine\Engine.cs" />
     <Compile Include="CarParts\Engine\FuelEngine.cs" />
     <Compile Include="GarageLogic.cs" />
-    <Compile Include="CarParts\Motorcycle.cs" />
-    <Compile Include="CarParts\Truck.cs" />
+    <Compile Include="Vehicles\Motorcycle.cs" />
+    <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="Exceptions\ValueOutOfRangeException.cs" />
-    <Compile Include="CarParts\Vehicle.cs" />
+    <Compile Include="Vehicles\Vehicle.cs" />
     <Compile Include="CarParts\Wheel.cs" />
   </ItemGroup>
   <ItemGroup />
