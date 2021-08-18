@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Ex03.GarageLogic
 {
@@ -162,6 +164,23 @@ namespace Ex03.GarageLogic
              }
         }
 
+        public List<PropertyInfo> GetVehiclesUniqueProperties(Vehicle i_NewVehicle)
+        {
+             PropertyInfo[] allProperties = i_NewVehicle.GetType().GetProperties();
+             List<PropertyInfo> uniqueProperties = new List<PropertyInfo>();
+             foreach (PropertyInfo currentCheckedProperty in allProperties)
+             {
+                  string checkedPropertyName = currentCheckedProperty.Name;
+
+                  if (typeof(Vehicle).GetProperty(checkedPropertyName) == null) //if vehicle doesn't have this propery, it's unique.
+                  {
+                       uniqueProperties.Add(currentCheckedProperty);
+                  }
+             }
+
+             return uniqueProperties;
+        }
+
         public class VehicleDTOBundle
           {
                public Wheel[] Wheels
@@ -231,47 +250,61 @@ namespace Ex03.GarageLogic
                            "\nEngine: " + "TODO";
 
                }
+              
+        }
 
-          }
+        //
+        // public class WheelsDTO
+        // {
+        //      public float AirPreasure
+        //      {
+        //           get => m_AirPreasure;
+        //           set => m_AirPreasure = value;
+        //      }
+        //
+        //      public string Manufacturer
+        //      {
+        //           get => m_Manufacturer;
+        //           set => m_Manufacturer = value;
+        //      }
+        //
+        //      private float m_AirPreasure;
+        //      private string m_Manufacturer;
+        // }
+        //
+        // public struct EngineDTO
+        // {
+        //      public FuelEngine.eFuelType FuelType
+        //      {
+        //           get => fuelType;
+        //           set => fuelType = value;
+        //      }
+        //
+        //      public float BatteryState
+        //      {
+        //           get => batteryState;
+        //           set => batteryState = value;
+        //      }
+        //
+        //      private FuelEngine.eFuelType fuelType;
+        //      private float batteryState;
+        // }
 
-          //
-          // public class WheelsDTO
-          // {
-          //      public float AirPreasure
-          //      {
-          //           get => m_AirPreasure;
-          //           set => m_AirPreasure = value;
-          //      }
-          //
-          //      public string Manufacturer
-          //      {
-          //           get => m_Manufacturer;
-          //           set => m_Manufacturer = value;
-          //      }
-          //
-          //      private float m_AirPreasure;
-          //      private string m_Manufacturer;
-          // }
-          //
-          // public struct EngineDTO
-          // {
-          //      public FuelEngine.eFuelType FuelType
-          //      {
-          //           get => fuelType;
-          //           set => fuelType = value;
-          //      }
-          //
-          //      public float BatteryState
-          //      {
-          //           get => batteryState;
-          //           set => batteryState = value;
-          //      }
-          //
-          //      private FuelEngine.eFuelType fuelType;
-          //      private float batteryState;
-          // }
+        //TODO: add UniqueDTO
 
-          //TODO: add UniqueDTO
- 
-     }
+        //in the foreach: if a property is unique - it exists only at the specific vehicle and not in vehicle class
+        //if such properties are found, add to the checked vehicles property (they are unique).
+
+
+        public void setValueForUniqueProperty(PropertyInfo i_UniquePropertyInfo, Vehicle i_NewVehicle, string i_NewPropertyValue)
+        {
+             
+             i_UniquePropertyInfo.SetValue(i_NewVehicle, i_NewVehicle.AutonomicParser(i_UniquePropertyInfo, i_NewPropertyValue), null);
+        }
+        // public void setValueForEnumUniqueProperty(PropertyInfo i_UniquePropertyInfo, Vehicle i_NewVehicle, string i_NewPropertyValue)
+        // {
+        //      ;
+        //      i_UniquePropertyInfo.SetValue(i_NewVehicle, i_NewVehicle.AutonomicParser(i_UniquePropertyInfo, i_NewPropertyValue), null);
+        // }
+    }
 }

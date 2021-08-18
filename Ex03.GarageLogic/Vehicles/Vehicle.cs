@@ -1,4 +1,8 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+
+namespace Ex03.GarageLogic
 {
      public abstract class Vehicle
      {
@@ -74,5 +78,9 @@
                Motorcycle,
                Truck
           }
+
+          public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pickable object
+
+          public abstract object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed);
      }
 }
