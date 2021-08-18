@@ -76,7 +76,7 @@ namespace Ex03.ConsoleUI
             }
             else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.ExhibitSpecificCar)
             {
-                getExhibitSpecificCarInput();
+                ExhibitSpecificCarToConsole();
             }
             else //quit
             {
@@ -86,9 +86,14 @@ namespace Ex03.ConsoleUI
             return contStatus;
         }
 
-        private void getExhibitSpecificCarInput()
+        private void ExhibitSpecificCarToConsole()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Sup, here you can enter a vehicles license's plate and get tons of data on the vehicle!" +
+                              " how cool is that???");
+            Console.WriteLine("Enter a license plate of a vehicle within our garage, if the vehicle isn't found here, you'll be informed correspondingly.");
+            GarageLogicC.VehicleDTOBundle bundle = m_GarageLogic.GetVehicleBundle(Console.ReadLine());
+            Console.WriteLine(bundle.ToString());
+            //TODO: better model: "Model: {0}| Owners: {1}| Vehicle state in garage: {2}| TODO wheels...{3}| TODO engine print{4}", Model, Owners,Status, "TODO: Print Wheels", "TODO: Print Engine";
         }
 
         private void FillElectricMotorInput()
@@ -99,6 +104,7 @@ namespace Ex03.ConsoleUI
             string amountToFill = Console.ReadLine();
             //check validity
             m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
+            
         }
 
         private void FillGasMotor()
@@ -216,6 +222,8 @@ namespace Ex03.ConsoleUI
             m_GarageLogic.AddEngine(newVehicle, (Engine.eEngineType)Enum.Parse(typeof(Engine.eEngineType), EngineType));
             //at AddEngine - where does the user choose the type of gas incase it's fuel?
             //TODO: add specialCondition method(Car-Doors, Motorcycle-License type)
+            
+
 
             //TODO: ask for wheels
 

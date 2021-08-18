@@ -51,6 +51,11 @@
     <Compile Include="Vehicles\Vehicle.cs" />
     <Compile Include="CarParts\Wheel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{c37e7d49-4d08-4481-abce-a16a05842a2b}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
