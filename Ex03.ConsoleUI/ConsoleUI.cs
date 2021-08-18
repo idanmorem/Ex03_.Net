@@ -11,6 +11,7 @@ namespace Ex03.ConsoleUI
      public class ConsoleUi
      {
           private GarageLogic.GarageLogicC m_GarageLogic;
+          private string[] lastActionMessages; //array of messages-> expandable 
 
           public static void Main()
           {
@@ -64,7 +65,7 @@ namespace Ex03.ConsoleUI
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.AddTirePressure)
                {
-                    getAddTirePressureInput();
+                    addTirePressureInput();
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.FillGasMotor)
                {
@@ -117,7 +118,7 @@ namespace Ex03.ConsoleUI
                string LicenseNumber = Console.ReadLine();
                m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
                m_GarageLogic.CheckIfEngineIsFuel(LicenseNumber);
-               Console.WriteLine("Hello! Please choose a fuel type for the vehicle, followed by an ENTER.");
+               Console.WriteLine("Please choose a fuel type for the vehicle, followed by an ENTER.");
                int i = 0;
                foreach (FuelEngine.eFuelType Type in Enum.GetValues(typeof(FuelEngine.eFuelType)))
                {
@@ -126,21 +127,39 @@ namespace Ex03.ConsoleUI
                }
                string newFuelType = Console.ReadLine();
                m_GarageLogic.CheckIfFuelTypeIsCorrect((FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), LicenseNumber);
-               Console.WriteLine("Hello! Please choose the amount of fuel to fill, followed by an ENTER.");
+               Console.WriteLine("Please choose the amount of fuel to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
           }
 
 
 
-          private void getAddTirePressureInput()
+          private void addTirePressureInput()
           {
-               throw new NotImplementedException();
+            Console.WriteLine("Here you can fill a vehicle's tires to it's maximum capacity");
+            
+
+
+            Console.WriteLine("If you dont want to fill air, press 1, followed by an enter");
+            Console.WriteLine("Otherwise, Please enter the license number, followed by an ENTER.");
+
+            string userChoice = Console.ReadLine();
+
+            if (userChoice == "1")
+            {
+                 Console.WriteLine("Action successfully canceled.");
+            }
+            else
+            {
+                 m_GarageLogic.FillWheelsAirPressure(userChoice);
+                 Console.WriteLine("Action successful.");
+            }
           }
 
           private void ChangeVehicleStateConsoleInput()
           {
-               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("Here you can change your vehicles state in the garage.");
+               Console.WriteLine("Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                //check validation
                int i = 0;
