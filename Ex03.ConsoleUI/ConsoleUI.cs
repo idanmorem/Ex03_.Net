@@ -11,7 +11,7 @@ namespace Ex03.ConsoleUI
      public class ConsoleUi
      {
           private GarageLogic.GarageLogicC m_GarageLogic;
-          private string[] lastActionMessages; //array of messages-> expandable 
+          private string lastActionMessage = null; //array of messages-> expandable 
 
           public static void Main()
           {
@@ -26,6 +26,12 @@ namespace Ex03.ConsoleUI
 
           public void GarageMenu()
           {
+               Console.Clear();
+               if (lastActionMessage != null)
+               {
+                    Console.WriteLine(lastActionMessage);
+               }
+
 
                createTestVehicles(); //for tests ONLY
                bool contBrowsingMenu = true;
@@ -38,9 +44,13 @@ namespace Ex03.ConsoleUI
                          string currentUserInput = Console.ReadLine();
                          contBrowsingMenu = getInputForAction(getCurrentOperation(currentUserInput));
                     }
+                    catch (KeyNotFoundException e)
+                    {
+                         lastActionMessage = "ERROR: The entered license plate does not exist in our garage!";
+                    }
                     catch (Exception e)
                     {
-                         Console.WriteLine(e.Message);
+                         lastActionMessage = e.Message;
                     }
                }
                Console.WriteLine("You've chosen to quit, goodbye!~");
@@ -130,24 +140,24 @@ namespace Ex03.ConsoleUI
 
           private void addTirePressureInput()
           {
-            Console.WriteLine("Here you can fill a vehicle's tires to it's maximum capacity");
-            
+               Console.WriteLine("Here you can fill a vehicle's tires to it's maximum capacity");
 
 
-            Console.WriteLine("If you dont want to fill air, press 1, followed by an enter");
-            Console.WriteLine("Otherwise, Please enter the license number, followed by an ENTER.");
 
-            string userChoice = Console.ReadLine();
+               Console.WriteLine("If you dont want to fill air, press 1, followed by an enter");
+               Console.WriteLine("Otherwise, Please enter the license number, followed by an ENTER.");
 
-            if (userChoice == "1")
-            {
-                 Console.WriteLine("Action successfully canceled.");
-            }
-            else
-            {
-                 m_GarageLogic.FillWheelsAirPressure(userChoice);
-                 Console.WriteLine("Action successful.");
-            }
+               string userChoice = Console.ReadLine();
+
+               if (userChoice == "1")
+               {
+                    Console.WriteLine("Action successfully canceled.");
+               }
+               else
+               {
+                    m_GarageLogic.FillWheelsAirPressure(userChoice);
+                    Console.WriteLine("Action successful.");
+               }
           }
 
           private void ChangeVehicleStateConsoleInput()
@@ -217,6 +227,11 @@ namespace Ex03.ConsoleUI
                string LicenseNumber = Console.ReadLine();
                checkValidLicenseNumberInput(LicenseNumber);
 
+               Console.WriteLine("Hello! Please enter the precentage of energy left in the Vehicle, followed by an ENTER.");
+               string EnergyPrecentage = Console.ReadLine();
+               checkValidEnergyPrecentageeInput(EnergyPrecentage);
+               m_GarageLogic.AddPrecentage(newVehicle, float.Parse(EnergyPrecentage));
+
                Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
                string OwnerName = Console.ReadLine();
                newVehicle.OwnersName = OwnerName;
@@ -256,7 +271,7 @@ namespace Ex03.ConsoleUI
 
           private void checkValidCurrentAirPressureInput(string i_input)
           {
-               if(float.Parse(i_input) < 0)
+               if (float.Parse(i_input) < 0)
                {
                     throw new ValueOutOfRangeException();
                }
@@ -343,7 +358,7 @@ namespace Ex03.ConsoleUI
                m_GarageLogic.AddEngine(secondCar, Engine.eEngineType.Electric);
                secondCar.CurrentEngine.EnergyPercent = 20;
                secondCar.CurrentEngine.CalcCurrentEnergy();
-         
+
                Vehicle firstMotorCycle = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Motorcycle);
                firstMotorCycle.ModelName = "Honda-NemesisXG";
                firstMotorCycle.OwnersName = "Nahum";
