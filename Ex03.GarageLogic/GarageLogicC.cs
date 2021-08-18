@@ -133,8 +133,14 @@ namespace Ex03.GarageLogic
                return new VehicleDTOBundle(r_VehiclesInGarage[i_LicenseNumber]);
           }
 
-
-          public class VehicleDTOBundle
+          public void FillWheelsAirPressure(string i_LicenseNumber)
+          {
+               foreach (Wheel wheel in r_VehiclesInGarage[i_LicenseNumber].Wheels)
+               {
+                    wheel.CurrentAirPressure = wheel.MaxAirPressure;
+               }
+          }
+        public class VehicleDTOBundle
           {
                public Wheel[] Wheels
                {
@@ -206,9 +212,6 @@ namespace Ex03.GarageLogic
 
           }
 
-
-
-
           //
           // public class WheelsDTO
           // {
@@ -247,5 +250,6 @@ namespace Ex03.GarageLogic
           // }
 
           //TODO: add UniqueDTO
+ 
      }
 }
