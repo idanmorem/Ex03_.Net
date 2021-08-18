@@ -10,14 +10,8 @@
           {
                if(i_FuelType == m_FuelType) // checking if same fuel type
                {
-                    if((m_CurrentFuelAmount + i_AmountOfFuelToAdd) <= m_MaxFuelAmount)// checking if in range
-                    {
-                         m_CurrentFuelAmount = m_CurrentFuelAmount + i_AmountOfFuelToAdd;
-                    }
-                    else
-                    {
-                         throw new ValueOutOfRangeException();
-                    }
+
+                    CurrentFuelAmount = m_CurrentFuelAmount + i_AmountOfFuelToAdd;
                }
                else
                {
@@ -28,6 +22,12 @@
           public override float CalcEnergyPercent()
           {
                return ((m_CurrentFuelAmount / m_MaxFuelAmount) * 100);
+          }
+
+          //TODO: updated - new
+          public override void CalcCurrentEnergy()
+          {
+               m_CurrentFuelAmount = ((m_MaxFuelAmount * base.EnergyPercent) / 100);
           }
 
           public FuelEngine()
@@ -50,7 +50,7 @@
                get => m_CurrentFuelAmount;
                set
                {
-                    if (value < 0)
+                    if (value < m_CurrentFuelAmount)
                     {
                          throw new ValueOutOfRangeException();
                     }

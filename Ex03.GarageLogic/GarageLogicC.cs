@@ -35,6 +35,13 @@ namespace Ex03.GarageLogic
                r_Factory.AddEngine(i_Vehicle, i_Type);
           }
 
+          //TODO: updated - new
+          public void AddPrecentage(Vehicle i_Vehicle, float i_input)
+          {
+               i_Vehicle.CurrentEngine.EnergyPercent = i_input;
+               i_Vehicle.CurrentEngine.CalcCurrentEnergy();
+          }
+
           //func no. 1
           public Vehicle CreateVehicle(Vehicle.eVehicleType i_Type)
           {

@@ -7,14 +7,7 @@
 
           public void Charge(float i_AmountOfTimeToAdd)
           {
-               if ((m_BatteryTimeLeft + i_AmountOfTimeToAdd) <= m_MaxBatteryTime)
-               {
-                    m_BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
-               }
-               else
-               {
-                    throw new ValueOutOfRangeException();
-               }
+               m_BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
           }
 
           public override float CalcEnergyPercent()
@@ -22,12 +15,18 @@
                return ((m_BatteryTimeLeft / m_MaxBatteryTime) * 100);
           }
 
+          //TODO: updated - new
+          public override float CalcCurrentEnergy()
+          {
+               m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
+          }
+
           public float BatteryTimeLeft
           {
                get => m_BatteryTimeLeft;
                set
                {
-                    if (value < 0)
+                    if (value < m_BatteryTimeLeft)
                     {
                          throw new ValueOutOfRangeException();
                     }
@@ -37,6 +36,7 @@
                     }
                     else
                     {
+                         base.EnergyPercent = CalcEnergyPercent();
                          m_BatteryTimeLeft = value;
                     }
                }

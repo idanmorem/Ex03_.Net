@@ -4,3 +4,9 @@ C:\Users\Z490\Source\Repos\Ex03_.Net\Utils\bin\Debug\Utils.dll
 C:\Users\Z490\Source\Repos\Ex03_.Net\Utils\bin\Debug\Utils.pdb
 C:\Users\Z490\Source\Repos\Ex03_.Net\Utils\obj\Debug\Utils.dll
 C:\Users\Z490\Source\Repos\Ex03_.Net\Utils\obj\Debug\Utils.pdb
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\bin\Debug\Utils.dll
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\bin\Debug\Utils.pdb
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\obj\Debug\Utils.csproj.AssemblyReference.cache
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\obj\Debug\Utils.dll
+C:\Users\idanm\source\repos\Ex03_.Net\Utils\obj\Debug\Utils.pdb
