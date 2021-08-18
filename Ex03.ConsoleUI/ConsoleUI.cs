@@ -103,7 +103,33 @@ namespace Ex03.ConsoleUI
                                  " how cool is that???");
                Console.WriteLine("Enter a license plate of a vehicle within our garage, if the vehicle isn't found here, you'll be informed correspondingly.");
                GarageLogicC.VehicleDTOBundle bundle = m_GarageLogic.GetVehicleBundle(Console.ReadLine());
-               Console.WriteLine(bundle.ToString());
+               StringBuilder sb = new StringBuilder();
+               sb.Append("License Number: ");
+               sb.Append(bundle.LicenseNumber);
+               sb.Append("\nModel: ");
+               sb.Append(bundle.Model);
+               sb.Append("\nOwners: ");
+               sb.Append(bundle.Owners);
+               sb.Append("\nStatus: ");
+               sb.Append(bundle.Status);
+               sb.Append("\nWheels manufecturer: ");
+               sb.Append(bundle.Wheels[0].ManufacturerName);
+               sb.Append("\nWheels Pressure: ");
+               sb.Append(bundle.Wheels[0].CurrentAirPressure);
+               if (bundle.Engine is FuelEngine)
+               {
+                    sb.Append("\nEngine fuel precentage is: ");
+                    sb.Append(bundle.Engine.EnergyPercent);
+                    sb.Append("\nEngine fuel type is: ");
+                    sb.Append((bundle.Engine as FuelEngine).FuelType.ToString());
+               }
+               else if(bundle.Engine is ElectricEngine)
+               {
+                    sb.Append("\nEngine battery precentage is: ");
+                    sb.Append(bundle.Engine.EnergyPercent);
+               }
+               sb.Append("\n");
+               lastActionMessage = sb.ToString();
                //TODO: better model: "Model: {0}| Owners: {1}| Vehicle state in garage: {2}| TODO wheels...{3}| TODO engine print{4}", Model, Owners,Status, "TODO: Print Wheels", "TODO: Print Engine";
           }
 
@@ -117,6 +143,7 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Hello! Please choose the amount of hours to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
+               lastActionMessage = "Success - the vehicle hours of battery left has been updated";
           }
 
           private void FillGasMotor()
@@ -138,13 +165,12 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Please choose the amount of fuel to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
+               lastActionMessage = "Success - the vehicle fuel amount has been updated";
           }
 
           private void addTirePressureInput()
           {
                Console.WriteLine("Here you can fill a vehicle's tires to it's maximum capacity");
-
-
 
                Console.WriteLine("If you dont want to fill air, press 1, followed by an enter");
                Console.WriteLine("Otherwise, Please enter the license number, followed by an ENTER.");
@@ -153,12 +179,12 @@ namespace Ex03.ConsoleUI
 
                if (userChoice == "1")
                {
-                    Console.WriteLine("Action successfully canceled.");
+                    lastActionMessage = "Action successfully canceled.";
                }
                else
                {
                     m_GarageLogic.FillWheelsAirPressure(userChoice);
-                    Console.WriteLine("Action successful.");
+                    lastActionMessage = "Success - The wheel's pressure is maximum";
                }
           }
 
@@ -168,7 +194,7 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
-
+      
                int i = 0;
                foreach (Vehicle.eVehicleStatus Status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
                {
@@ -177,34 +203,43 @@ namespace Ex03.ConsoleUI
                }
                string NewStatus = Console.ReadLine();
                m_GarageLogic.ChangeStatus(LicenseNumber, (Vehicle.eVehicleStatus)Enum.Parse(typeof(Vehicle.eVehicleStatus), NewStatus));
-
+               lastActionMessage = "The vehicle has succesfully changed his status";
           }
 
           private void getListLicencedVehiclesToConsole()
           {
+               StringBuilder sb = new StringBuilder();
                int counter = 1;
                Console.WriteLine("Here you can view a list of all the vehicles our lovely garage. ");
                Console.WriteLine("The list consists of the plate-numbers and their current-states");
                Console.WriteLine("if you wish the view the plate numbers only, press 1, otherwise, press any other key.");
                if (Console.ReadLine() == "1")
                {
-                    Console.WriteLine("List Format: Plate Number");
+                    sb.Append("List Format: Plate Number\n\n");
                     foreach (string vehicleLicencePlate in m_GarageLogic.GetPlateList())
                     {
-                         Console.WriteLine("{0}. PlateNumber: {1}", counter, vehicleLicencePlate);
+                         sb.Append(counter);
+                         sb.Append(". PlateNumber: ");
+                         sb.Append(vehicleLicencePlate);
+                         sb.Append("\n");
                          ++counter;
                     }
                }
                else
                {
-                    Console.WriteLine("List Format: Plate Number | State");
+                    sb.Append("List Format: Plate Number | State\n\n");
                     foreach (string vehicleLicencePlate in m_GarageLogic.GetPlateList())
                     {
-                         Console.WriteLine("{0}. PlateNumber: {1} | State: {2}", counter, vehicleLicencePlate,
-                             m_GarageLogic.getVehicleState(vehicleLicencePlate));
+                         sb.Append(counter);
+                         sb.Append(". PlateNumber:");
+                         sb.Append(vehicleLicencePlate);
+                         sb.Append(" | State: ");
+                         sb.Append(m_GarageLogic.getVehicleState(vehicleLicencePlate));
+                         sb.Append("\n");
                          ++counter;
                     }
                }
+               lastActionMessage = sb.ToString();
           }
 
           private void insertNewVehicleUserConsoleInput()
@@ -228,6 +263,7 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                checkValidLicenseNumberInput(LicenseNumber);
+               //TODO: check if there isn't already a vehicle withthe same LicenseNumber     
 
                Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
                string OwnerName = Console.ReadLine();
@@ -257,6 +293,7 @@ namespace Ex03.ConsoleUI
 
                Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
                string WheelManufacturerName = Console.ReadLine();
+               Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
                Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
                string CurrentAirPressure = Console.ReadLine();
                checkValidCurrentAirPressureInput(CurrentAirPressure);
@@ -265,6 +302,7 @@ namespace Ex03.ConsoleUI
                //i try so hard
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
+               lastActionMessage = "The vehicle has been succesfully added to the data base";
 
             //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
         }

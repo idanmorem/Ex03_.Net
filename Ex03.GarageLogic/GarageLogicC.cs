@@ -31,6 +31,11 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.Add(i_LicenseNumber, i_Vehicle);
           }
 
+          public float GetMaxAirPressure(Vehicle i_Vehicle)
+          {
+               return i_Vehicle.Wheels[0].MaxAirPressure;
+          }
+
           public void AddEngine(Vehicle i_Vehicle, Engine.eEngineType i_Type)
           {
                r_Factory.AddEngine(i_Vehicle, i_Type);
@@ -149,7 +154,7 @@ namespace Ex03.GarageLogic
         {
              Vehicle currentVehicle;
              r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
-             return new VehicleDTOBundle(currentVehicle);
+             return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
              }
 
         public void FillWheelsAirPressure(string i_LicenseNumber)
@@ -164,6 +169,14 @@ namespace Ex03.GarageLogic
 
         public class VehicleDTOBundle
           {
+               private string m_LicenseNumber;
+
+               public string LicenseNumber
+               {
+                    get => m_LicenseNumber;
+                    set => m_LicenseNumber = value;
+               }
+
                public Wheel[] Wheels
                {
                     get => m_Wheels;
@@ -196,13 +209,9 @@ namespace Ex03.GarageLogic
                     set => m_Status = value;
                }
 
-
                private Wheel[] m_Wheels;
 
                private Engine engine;
-
-
-
 
                private string m_Model;
                public string Model
@@ -212,11 +221,11 @@ namespace Ex03.GarageLogic
                }
 
 
-               public VehicleDTOBundle(Vehicle i_Vehicle)
+               public VehicleDTOBundle(Vehicle i_Vehicle, string i_ID)
                {
                     //TODO: deep clone to move data safely
 
-
+                    this.LicenseNumber = i_ID;
                     this.Model = i_Vehicle.ModelName;
                     this.Owners = i_Vehicle.OwnersName;
                     this.Status = i_Vehicle.Status;
@@ -227,7 +236,7 @@ namespace Ex03.GarageLogic
 
                public override string ToString()
                {
-                    return "Model: " + Model + "\nOwners: " + Owners + "\nState: " + Status + "\nWheels: " + "TODO" +
+                    return "License Number:" + LicenseNumber +  "Model: " + Model + "\nOwners: " + Owners + "\nState: " + Status + "\nWheels manufecturer : " + "TODO" +
                            "\nEngine: " + "TODO";
 
                }
