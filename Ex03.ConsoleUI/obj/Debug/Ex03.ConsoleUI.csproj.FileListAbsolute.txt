@@ -9,3 +9,14 @@ C:\Users\idanm\source\repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CopyComplete
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.AssemblyReference.cache
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CoreCompileInputs.cache
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe.config
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.dll
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.pdb
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.dll.config
+C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CopyComplete

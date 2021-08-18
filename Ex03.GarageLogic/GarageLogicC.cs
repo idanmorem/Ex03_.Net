@@ -101,5 +101,15 @@ namespace Ex03.GarageLogic
                     throw new ValueOutOfRangeException();
                }
           }
+
+          public Dictionary<string, Vehicle>.KeyCollection GetPlateList()
+          {
+               return r_VehiclesInGarage.Keys;
+          }
+
+          public Vehicle.eVehicleStatus getVehicleState(string i_VehicleLicencePlate)
+          {
+               return r_VehiclesInGarage[i_VehicleLicencePlate].Status;
+          }
      }
 }
