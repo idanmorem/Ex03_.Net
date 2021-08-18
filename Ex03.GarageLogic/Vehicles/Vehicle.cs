@@ -3,7 +3,7 @@
      public abstract class Vehicle
      {
           private string m_ModelName;
-          private Wheel[] m_Wheels; // TODO: set the wheels
+          private Wheel[] m_Wheels;
           private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
           private string m_OwnersName;
           private string m_OwnersPhoneNumber;

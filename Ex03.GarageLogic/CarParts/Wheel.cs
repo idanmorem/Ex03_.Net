@@ -32,7 +32,17 @@
           public float CurrentAirPressure
           {
                get => m_CurrentAirPressure;
-               set => m_CurrentAirPressure = value;
+               set
+               {
+                    if (value <= m_MaxAirPressure && value >= 0)
+                    {
+                         m_CurrentAirPressure = value;
+                    }
+                    else
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+               }
           }
 
           public float MaxAirPressure

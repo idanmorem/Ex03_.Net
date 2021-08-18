@@ -15,8 +15,11 @@
 
           public abstract float CalcEnergyPercent();
 
-          //TODO: updated - new
           public abstract void CalcCurrentEnergy();
+
+          public abstract float GetAmountOfEnergy();
+          public abstract float GetMaxAmountOfEnergy();
+
 
 
           public enum eEngineType

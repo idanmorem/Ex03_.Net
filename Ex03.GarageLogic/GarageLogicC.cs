@@ -35,7 +35,6 @@ namespace Ex03.GarageLogic
                r_Factory.AddEngine(i_Vehicle, i_Type);
           }
 
-          //TODO: updated - new
           public void AddPrecentage(Vehicle i_Vehicle, float i_input)
           {
                i_Vehicle.CurrentEngine.EnergyPercent = i_input;
@@ -61,7 +60,29 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.ContainsKey(i_input);
           }
 
-          //TODO: updated - new
+          public void AddWheels(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure)
+          {
+               foreach(Wheel wheel in i_Vehicle.Wheels)
+               {
+                    wheel.CurrentAirPressure = i_CurrentAirPressure;
+                    wheel.ManufacturerName = i_ManufacturerName;
+               }
+          }
+
+          public float GetAmountOfEnergy(string i_ID)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
+               return currentVehicle.CurrentEngine.GetAmountOfEnergy();
+          }
+
+          public float GetMaxAmoutOfEnergy(string i_ID)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
+               return currentVehicle.CurrentEngine.GetMaxAmountOfEnergy();
+          }
+
           public void CheckIfEngineIsFuel(string i_input)
           {
                Vehicle currentVehicle;
@@ -82,8 +103,6 @@ namespace Ex03.GarageLogic
                }
           }
 
-
-          //TODO: updated - new
           public void CheckIfEngineIsElectric(string i_input)
           {
                Vehicle currentVehicle;
@@ -93,7 +112,6 @@ namespace Ex03.GarageLogic
                     throw new System.FormatException();
                }
           }
-
 
           //func no. 6
           public void Charge(string i_ID, float i_amountToFill)

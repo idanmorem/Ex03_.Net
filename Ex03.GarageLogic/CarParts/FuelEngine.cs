@@ -16,16 +16,23 @@
                return ((m_CurrentFuelAmount / m_MaxFuelAmount) * 100);
           }
 
-          //TODO: updated - new
           public override void CalcCurrentEnergy()
           {
                m_CurrentFuelAmount = ((m_MaxFuelAmount * base.EnergyPercent) / 100);
           }
 
-          public FuelEngine()
+          public override float GetAmountOfEnergy()
           {
-
+               return CurrentFuelAmount;
           }
+
+          public override float GetMaxAmountOfEnergy()
+          {
+               return MaxFuelAmount;
+          }
+
+
+          public FuelEngine() { }
 
           public eFuelType FuelType
           {

@@ -21,6 +21,15 @@
                m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
           }
 
+          public override float GetAmountOfEnergy()
+          {
+               return BatteryTimeLeft;
+          }
+
+          public override float GetMaxAmountOfEnergy()
+          {
+               return MaxBatteryTime;
+          }
           public float BatteryTimeLeft
           {
                get => m_BatteryTimeLeft;
