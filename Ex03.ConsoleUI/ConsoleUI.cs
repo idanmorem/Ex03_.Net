@@ -60,7 +60,7 @@ namespace Ex03.ConsoleUI
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.ChangeVehicleState)
                {
-                    getChangeVehicleStateConsoleInput();
+                    ChangeVehicleStateConsoleInput();
                }
                else if (i_GetCurrentOperation == GarageLogic.GarageLogicC.eGarageOperations.AddTirePressure)
                {
@@ -96,21 +96,27 @@ namespace Ex03.ConsoleUI
                //TODO: better model: "Model: {0}| Owners: {1}| Vehicle state in garage: {2}| TODO wheels...{3}| TODO engine print{4}", Model, Owners,Status, "TODO: Print Wheels", "TODO: Print Engine";
           }
 
+          //TODO: updated - changed location of checks
           private void FillElectricMotorInput()
           {
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
+               m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
+               m_GarageLogic.CheckIfEngineIsElectric(LicenseNumber);
+               //TODO: present the current amount of energy
                Console.WriteLine("Hello! Please choose the amount of hours to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
           }
 
 
-
+          //TODO: updated - changed location of checks
           private void FillGasMotor()
           {
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
+               m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
+               m_GarageLogic.CheckIfEngineIsFuel(LicenseNumber);
                Console.WriteLine("Hello! Please choose a fuel type for the vehicle, followed by an ENTER.");
                int i = 0;
                foreach (FuelEngine.eFuelType Type in Enum.GetValues(typeof(FuelEngine.eFuelType)))
@@ -119,17 +125,20 @@ namespace Ex03.ConsoleUI
                     ++i;
                }
                string newFuelType = Console.ReadLine();
+               m_GarageLogic.CheckIfFuelTypeIsCorrect((FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), LicenseNumber);
                Console.WriteLine("Hello! Please choose the amount of fuel to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
           }
+
+
 
           private void getAddTirePressureInput()
           {
                throw new NotImplementedException();
           }
 
-          private void getChangeVehicleStateConsoleInput()
+          private void ChangeVehicleStateConsoleInput()
           {
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
@@ -170,8 +179,6 @@ namespace Ex03.ConsoleUI
                          ++counter;
                     }
                }
-
-
           }
 
           //TODO: updated - added validation check function calls
@@ -198,6 +205,11 @@ namespace Ex03.ConsoleUI
                string LicenseNumber = Console.ReadLine();
                checkValidLicenseNumberInput(LicenseNumber);
 
+               Console.WriteLine("Hello! Please enter the precentage of energy left in the Vehicle, followed by an ENTER.");
+               string EnergyPrecentage = Console.ReadLine();
+               checkValidEnergyPrecentageeInput(EnergyPrecentage);
+               m_GarageLogic.AddPrecentage(newVehicle, float.Parse(EnergyPrecentage));
+
                Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
                string OwnerName = Console.ReadLine();
                newVehicle.OwnersName = OwnerName;
@@ -217,13 +229,7 @@ namespace Ex03.ConsoleUI
                string EngineType = Console.ReadLine();
                checkValidEngineTypeInput(EngineType);
                m_GarageLogic.AddEngine(newVehicle, (Engine.eEngineType)Enum.Parse(typeof(Engine.eEngineType), EngineType));
-               
-               Console.WriteLine("Hello! Please enter the precentage of energy left in the Vehicle, followed by an ENTER.");
-               string EnergyPrecentage = Console.ReadLine();
-               checkValidEnergyPrecentageeInput(EnergyPrecentage);
-               m_GarageLogic.AddPrecentage(newVehicle, float.Parse(EnergyPrecentage));
 
-               //at AddEngine - where does the user choose the type of gas incase it's fuel?
                //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
 
                //TODO: ask for wheels
@@ -243,7 +249,7 @@ namespace Ex03.ConsoleUI
           //TODO: updated - new
           private void checkValidLicenseNumberInput(string i_input)
           {
-               if(int.Parse(i_input) <= 0)
+               if (int.Parse(i_input) <= 0)
                {
                     throw new ValueOutOfRangeException();
                }
@@ -252,7 +258,7 @@ namespace Ex03.ConsoleUI
           //TODO: updated - new
           private void checkValidPhoneNumberInput(string i_input)
           {
-               if(int.Parse(i_input) <= 0)
+               if (int.Parse(i_input) <= 0)
                {
                     throw new ValueOutOfRangeException();
                }
@@ -261,7 +267,7 @@ namespace Ex03.ConsoleUI
           //TODO: updated - new
           private void checkValidEngineTypeInput(string i_input)
           {
-               if(int.Parse(i_input) > typeof(Engine.eEngineType).GetEnumValues().Length || int.Parse(i_input) < 0)
+               if (int.Parse(i_input) > typeof(Engine.eEngineType).GetEnumValues().Length || int.Parse(i_input) < 0)
                {
                     throw new ValueOutOfRangeException();
                }
@@ -270,7 +276,7 @@ namespace Ex03.ConsoleUI
           //TODO: updated - new
           private void checkValidEnergyPrecentageeInput(string i_input)
           {
-               if(float.Parse(i_input) > 100 || float.Parse(i_input) < 0)
+               if (float.Parse(i_input) > 100 || float.Parse(i_input) < 0)
                {
                     throw new ValueOutOfRangeException();
                }
@@ -308,19 +314,20 @@ namespace Ex03.ConsoleUI
                firstCar.OwnersPhoneNumber = "1111111111";
                m_GarageLogic.AddEngine(firstCar, Engine.eEngineType.Fuel);
                firstCar.CurrentEngine.EnergyPercent = 50;
+               firstCar.CurrentEngine.CalcCurrentEnergy();
 
                Vehicle secondCar = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Car);
                secondCar.ModelName = "Mitsubishi-Attrage";
                secondCar.OwnersName = "Menash";
                secondCar.OwnersPhoneNumber = "2222222222";
                m_GarageLogic.AddEngine(secondCar, Engine.eEngineType.Electric);
-               firstCar.CurrentEngine.EnergyPercent = 20;
-
-
+               secondCar.CurrentEngine.EnergyPercent = 20;
+               secondCar.CurrentEngine.CalcCurrentEnergy();
+         
                Vehicle firstMotorCycle = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Motorcycle);
-               secondCar.ModelName = "Honda-NemesisXG";
-               secondCar.OwnersName = "Nahum";
-               secondCar.OwnersPhoneNumber = "3333333333";
+               firstMotorCycle.ModelName = "Honda-NemesisXG";
+               firstMotorCycle.OwnersName = "Nahum";
+               firstMotorCycle.OwnersPhoneNumber = "3333333333";
                m_GarageLogic.AddEngine(firstMotorCycle, Engine.eEngineType.Fuel);
 
                m_GarageLogic.AddVehicle(firstCar, "LN11111");

@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    public class GarageLogicC
+     public class GarageLogicC
      {
           private readonly Dictionary<string, Vehicle> r_VehiclesInGarage;
           private readonly VehicleFactory r_Factory;
@@ -51,45 +51,56 @@ namespace Ex03.GarageLogic
           //func no. 5
           public void AddFuel(string i_ID, FuelEngine.eFuelType i_fuelType, float i_amountToFill)
           {
-               if (r_VehiclesInGarage.ContainsKey(i_ID))
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
+               ((FuelEngine)currentVehicle.CurrentEngine).AddFuel(i_amountToFill, i_fuelType);
+          }
+
+          public void CheckIfVehicleExists(string i_input)
+          {
+               r_VehiclesInGarage.ContainsKey(i_input);
+          }
+
+          //TODO: updated - new
+          public void CheckIfEngineIsFuel(string i_input)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_input, out currentVehicle);
+               if (!(currentVehicle.CurrentEngine is FuelEngine))
                {
-                    Vehicle currentVehicle;
-                    r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
-                    if (currentVehicle.CurrentEngine is FuelEngine)
-                    {
-                         ((FuelEngine)currentVehicle.CurrentEngine).AddFuel(i_amountToFill, i_fuelType);
-                    }
-                    else
-                    {
-                         throw new System.FormatException();
-                    }
-               }
-               else
-               {
-                    throw new ValueOutOfRangeException();
+                    throw new System.ArgumentException();
                }
           }
+
+          public void CheckIfFuelTypeIsCorrect(FuelEngine.eFuelType i_input, string i_ID)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
+               if (i_input != (currentVehicle.CurrentEngine as FuelEngine).FuelType)
+               {
+                    throw new System.ArgumentException();
+               }
+          }
+
+
+          //TODO: updated - new
+          public void CheckIfEngineIsElectric(string i_input)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_input, out currentVehicle);
+               if (!(currentVehicle.CurrentEngine is ElectricEngine))
+               {
+                    throw new System.FormatException();
+               }
+          }
+
 
           //func no. 6
           public void Charge(string i_ID, float i_amountToFill)
           {
-               if (r_VehiclesInGarage.ContainsKey(i_ID))
-               {
-                    Vehicle currentVehicle;
-                    r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
-                    if (currentVehicle.CurrentEngine is ElectricEngine)
-                    {
-                         ((ElectricEngine)currentVehicle.CurrentEngine).Charge(i_amountToFill);
-                    }
-                    else
-                    {
-                         throw new System.FormatException();
-                    }
-               }
-               else
-               {
-                    throw new ValueOutOfRangeException();
-               }
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
+               ((ElectricEngine)currentVehicle.CurrentEngine).Charge(i_amountToFill);
           }
 
           //func no. 3
@@ -119,8 +130,9 @@ namespace Ex03.GarageLogic
 
           public VehicleDTOBundle GetVehicleBundle(string i_LicenseNumber)
           {
-              return new VehicleDTOBundle(r_VehiclesInGarage[i_LicenseNumber]);
+               return new VehicleDTOBundle(r_VehiclesInGarage[i_LicenseNumber]);
           }
+
 
           public class VehicleDTOBundle
           {
@@ -138,7 +150,7 @@ namespace Ex03.GarageLogic
 
                public VehicleDTOBundle()
                {
-   
+
                }
 
                private string m_Owners;
@@ -150,32 +162,32 @@ namespace Ex03.GarageLogic
                }
 
                private Vehicle.eVehicleStatus m_Status;
-            public Vehicle.eVehicleStatus Status
+               public Vehicle.eVehicleStatus Status
                {
                     get => m_Status;
                     set => m_Status = value;
                }
 
 
-            private Wheel[] m_Wheels;
+               private Wheel[] m_Wheels;
 
-            private Engine engine;
-   
-
+               private Engine engine;
 
 
-            private string m_Model;
-            public string Model
+
+
+               private string m_Model;
+               public string Model
                {
-                get { return m_Model; }
-                set { m_Model = value; }
+                    get { return m_Model; }
+                    set { m_Model = value; }
                }
 
 
                public VehicleDTOBundle(Vehicle i_Vehicle)
                {
                     //TODO: deep clone to move data safely
-                    
+
 
                     this.Model = i_Vehicle.ModelName;
                     this.Owners = i_Vehicle.OwnersName;
@@ -189,50 +201,51 @@ namespace Ex03.GarageLogic
                {
                     return "Model: " + Model + "\nOwners: " + Owners + "\nState: " + Status + "\nWheels: " + "TODO" +
                            "\nEngine: " + "TODO";
-                    
+
                }
+
           }
 
-          
-        //
-        // public class WheelsDTO
-        // {
-        //      public float AirPreasure
-        //      {
-        //           get => m_AirPreasure;
-        //           set => m_AirPreasure = value;
-        //      }
-        //
-        //      public string Manufacturer
-        //      {
-        //           get => m_Manufacturer;
-        //           set => m_Manufacturer = value;
-        //      }
-        //
-        //      private float m_AirPreasure;
-        //      private string m_Manufacturer;
-        // }
-        //
-        // public struct EngineDTO
-        // {
-        //      public FuelEngine.eFuelType FuelType
-        //      {
-        //           get => fuelType;
-        //           set => fuelType = value;
-        //      }
-        //
-        //      public float BatteryState
-        //      {
-        //           get => batteryState;
-        //           set => batteryState = value;
-        //      }
-        //
-        //      private FuelEngine.eFuelType fuelType;
-        //      private float batteryState;
-        // }
 
-        //TODO: add UniqueDTO
-    }
+
+
+          //
+          // public class WheelsDTO
+          // {
+          //      public float AirPreasure
+          //      {
+          //           get => m_AirPreasure;
+          //           set => m_AirPreasure = value;
+          //      }
+          //
+          //      public string Manufacturer
+          //      {
+          //           get => m_Manufacturer;
+          //           set => m_Manufacturer = value;
+          //      }
+          //
+          //      private float m_AirPreasure;
+          //      private string m_Manufacturer;
+          // }
+          //
+          // public struct EngineDTO
+          // {
+          //      public FuelEngine.eFuelType FuelType
+          //      {
+          //           get => fuelType;
+          //           set => fuelType = value;
+          //      }
+          //
+          //      public float BatteryState
+          //      {
+          //           get => batteryState;
+          //           set => batteryState = value;
+          //      }
+          //
+          //      private FuelEngine.eFuelType fuelType;
+          //      private float batteryState;
+          // }
+
+          //TODO: add UniqueDTO
+     }
 }
-
-    

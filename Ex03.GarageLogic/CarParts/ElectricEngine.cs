@@ -7,7 +7,7 @@
 
           public void Charge(float i_AmountOfTimeToAdd)
           {
-               m_BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
+               BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
           }
 
           public override float CalcEnergyPercent()
@@ -16,7 +16,7 @@
           }
 
           //TODO: updated - new
-          public override float CalcCurrentEnergy()
+          public override void CalcCurrentEnergy()
           {
                m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
           }
@@ -36,8 +36,8 @@
                     }
                     else
                     {
-                         base.EnergyPercent = CalcEnergyPercent();
                          m_BatteryTimeLeft = value;
+                         base.EnergyPercent = CalcEnergyPercent();
                     }
                }
           }

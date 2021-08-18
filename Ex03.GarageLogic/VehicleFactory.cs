@@ -44,17 +44,17 @@
                     if(i_Vehicle is Car)
                     {
                          (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octan95;
-                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 45;
+                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 45f;
                     }
                     else if(i_Vehicle is Motorcycle)
                     {
                          (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octan98;
-                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 6;
+                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 6f;
                     }
                     else if(i_Vehicle is Truck)
                     {
                          (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Soler;
-                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 120;
+                         (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 120f;
                     }
                }
                else if(i_Type == Engine.eEngineType.Electric)

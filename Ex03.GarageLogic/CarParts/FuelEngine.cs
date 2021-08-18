@@ -8,15 +8,7 @@
 
           public void AddFuel(float i_AmountOfFuelToAdd, eFuelType i_FuelType)
           {
-               if(i_FuelType == m_FuelType) // checking if same fuel type
-               {
-
-                    CurrentFuelAmount = m_CurrentFuelAmount + i_AmountOfFuelToAdd;
-               }
-               else
-               {
-                    throw new System.ArgumentException();
-               }
+               CurrentFuelAmount = m_CurrentFuelAmount + i_AmountOfFuelToAdd;
           }
 
           public override float CalcEnergyPercent()
@@ -40,8 +32,7 @@
                get => m_FuelType;
                set
                {
-                    if(value == m_FuelType)
-                         m_FuelType = value;
+                    m_FuelType = value;
                }
           }
 
@@ -61,7 +52,8 @@
                     else
                     {
                          m_CurrentFuelAmount = value;
-                    }               
+                         base.EnergyPercent = CalcEnergyPercent();
+                    }
                }
           }
 
