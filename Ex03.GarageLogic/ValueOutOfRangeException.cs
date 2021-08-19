@@ -16,10 +16,10 @@
           {
           }
 
-          public ValueOutOfRangeException(string message, float i_MinValue)
-          {
-               MinValue = i_MinValue;
-          }
+          // public ValueOutOfRangeException(string message, float i_MinValue)
+          // {
+          //      MinValue = i_MinValue;
+          // }
 
         public float MaxValue
           {
