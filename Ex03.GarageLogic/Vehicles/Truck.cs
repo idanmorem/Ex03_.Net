@@ -87,5 +87,10 @@ namespace Ex03.GarageLogic
 
                return parsedValue;
           }
+
+          // public override string GetPropertyStrValue(PropertyInfo i_VehiclesUniqueProperty)
+          // {
+          //      throw new NotImplementedException();
+          // }
      }
 }

@@ -12,9 +12,6 @@ C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic
 C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Ex03.GarageLogic.dll.config
 C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Ex03.GarageLogic.dll
 C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Ex03.GarageLogic.pdb
-C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Utils.dll
-C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Utils.pdb
-C:\Users\Z490\Source\Repos\Ex03_.Net\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.csproj.CopyComplete
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Utils.dll
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.GarageLogic\bin\Debug\Utils.pdb
 C:\Users\idanm\source\repos\Ex03_.Net\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.csproj.CopyComplete

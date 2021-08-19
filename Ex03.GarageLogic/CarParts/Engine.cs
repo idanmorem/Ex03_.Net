@@ -10,7 +10,9 @@
                set
                {
                     m_EnergyPercent = value;
+                    
                }
+               
           }
 
           public abstract float CalcEnergyPercent();
@@ -24,6 +26,11 @@
           {
                Fuel,
                Electric
-          }       
+          }
+
+          public Engine ShallowClone()
+          {
+               return this.MemberwiseClone() as Engine;
+          }
      }
 }

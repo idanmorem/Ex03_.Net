@@ -3,83 +3,107 @@ using System.Reflection;
 
 namespace Ex03.GarageLogic
 {
-     public abstract class Vehicle
-     {
-          private string m_ModelName;
-          private Wheel[] m_Wheels;
-          private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
-          private string m_OwnersName;
-          private string m_OwnersPhoneNumber;
-          private eVehicleStatus m_Status;
-          private Engine m_CurrentEngine;
+    public abstract class Vehicle
+    {
+        private string m_ModelName;
+        private Wheel[] m_Wheels;
+        private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
+        private string m_OwnersName;
+        private string m_OwnersPhoneNumber;
+        private eVehicleStatus m_Status;
+        private Engine m_CurrentEngine;
 
-          public Vehicle(Wheel.eNumberOfWheels i_NumberOfWheels)
-          {
-               m_Status = eVehicleStatus.InProgress;
-               r_NumberOfWheels = i_NumberOfWheels;
-               m_Wheels = new Wheel[(int)i_NumberOfWheels];
-               for(int i = 0; i < (int)i_NumberOfWheels; i++)
-               {
-                    m_Wheels[i] = new Wheel();
-               }
-          }
+        public Vehicle(Wheel.eNumberOfWheels i_NumberOfWheels)
+        {
+            m_Status = eVehicleStatus.InProgress;
+            r_NumberOfWheels = i_NumberOfWheels;
+            m_Wheels = new Wheel[(int)i_NumberOfWheels];
+            for (int i = 0; i < (int)i_NumberOfWheels; i++)
+            {
+                m_Wheels[i] = new Wheel();
+            }
+        }
 
-          public enum eVehicleStatus
-          {
-               InProgress,
-               Fixed,
-               Paid
-          }
+        public enum eVehicleStatus
+        {
+            InProgress,
+            Fixed,
+            Paid
+        }
 
-          public Wheel[] Wheels
-          {
-               get => m_Wheels;
-          }
+        public Wheel[] Wheels
+        {
+            get => m_Wheels;
+        }
 
-          public string ModelName
-          {
-               get => m_ModelName;
-               set => m_ModelName = value;
-          }
+        public string ModelName
+        {
+            get => m_ModelName;
+            set => m_ModelName = value;
+        }
 
-          public Wheel.eNumberOfWheels NumberOfWheels
-          {
-               get => r_NumberOfWheels;
-          }
+        public Wheel.eNumberOfWheels NumberOfWheels
+        {
+            get => r_NumberOfWheels;
+        }
 
-          public string OwnersName
-          {
-               get => m_OwnersName;
-               set => m_OwnersName = value;
-          }
+        public string OwnersName
+        {
+            get => m_OwnersName;
+            set => m_OwnersName = value;
+        }
 
-          public string OwnersPhoneNumber
-          {
-               get => m_OwnersPhoneNumber;
-               set => m_OwnersPhoneNumber = value;
-          }
+        public string OwnersPhoneNumber
+        {
+            get => m_OwnersPhoneNumber;
+            set => m_OwnersPhoneNumber = value;
+        }
 
-          public eVehicleStatus Status
-          {
-               get => m_Status;
-               set => m_Status = value;
-          }
+        public eVehicleStatus Status
+        {
+            get => m_Status;
+            set => m_Status = value;
+        }
 
-          public Engine CurrentEngine
-          {
-               get => m_CurrentEngine;
-               set => m_CurrentEngine = value;
-          }
+        public Engine CurrentEngine
+        {
+            get => m_CurrentEngine;
+            set => m_CurrentEngine = value;
+        }
 
-          public enum eVehicleType
-          {
-               Car,
-               Motorcycle,
-               Truck
-          }
+        public enum eVehicleType
+        {
+            Car,
+            Motorcycle,
+            Truck
+        }
 
-          public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pickable object
+        public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pickable object
 
-          public abstract object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed);
-     }
+        public abstract object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed);
+
+        public virtual Vehicle DeepClone()
+        {
+            Vehicle cloneVehicle = (Vehicle)this.MemberwiseClone();
+            int i = 0;
+            foreach (Wheel wheel in cloneVehicle.Wheels)
+            {
+                cloneVehicle.Wheels.CopyTo(this.Wheels, i);
+            }
+
+            cloneVehicle.CurrentEngine = CurrentEngine.ShallowClone();
+            return cloneVehicle;
+            //good ModelName = vehicleToBeCloned.ModelName; 
+            //good NumberOfWheels = vehicleToBeCloned.NumberOfWheels;
+            //taken care copy wheels
+            //good private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
+            //good private string m_OwnersName;
+            //good private string m_OwnersPhoneNumber;
+            //good private eVehicleStatus m_Status;
+            //good private Engine m_CurrentEngine;
+
+        }
+
+        // public abstract string GetPropertyStrValue(PropertyInfo i_VehiclesUniqueProperty);
+    }
 }
