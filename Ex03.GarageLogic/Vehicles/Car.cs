@@ -78,21 +78,45 @@ namespace Ex03.GarageLogic
           }
 
           public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
-          {
-               object parsedValue = null;
-               string strValue = valueToBeParsed as string;
-               //Wheel wheel in i_Vehicle.Wheels
-               if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
-               {
+        {
+
+            object parsedValue = null;
+            string strValue = null;
+            if (valueToBeParsed != null)
+            {
+
+                strValue = valueToBeParsed as string;
+                //Wheel wheel in i_Vehicle.Wheels
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
+                {
                     //TODO: check valid input
                     parsedValue = Enum.Parse(typeof(eCarColor), strValue);
-               }
-               else //it's the number of doors
-               {
+                }
+                else //it's the number of doors
+                {
                     parsedValue = Enum.Parse(typeof(eNumberOfDoors), strValue);
-               }
+                }
+            }
+            else // parsedValue == null -> only return the object string that represents the properties value
+            {
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
+                {
+                    //TODO: check valid input
+                    parsedValue = Color.ToString();
+                }
+                else //it's the number of doors
+                {
+                    parsedValue = NumberOfDoors.ToString();
+                }
+            }
+            return parsedValue;
+        }
 
-               return parsedValue;
-          }
+
+        public override Vehicle DeepClone()
+        {
+            Car newCarClone = base.DeepClone() as Car;
+            return newCarClone;
+        }
      }
 }
