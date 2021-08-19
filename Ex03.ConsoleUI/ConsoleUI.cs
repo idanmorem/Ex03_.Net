@@ -234,16 +234,29 @@ namespace Ex03.ConsoleUI
                }
                else
                {
-                    sb.Append("List Format: Plate Number | State\n\n");
+                    Console.WriteLine("Hello! Please choose the car status you wish to display:");
+                    int i = 0;
+                    foreach(Vehicle.eVehicleStatus status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
+                    {
+                         Console.WriteLine("Press {0} to display status {1}", i, status.ToString());
+                         i++;
+                    }
+                    string VehicleStatus = Console.ReadLine();
+                    sb.Append("List Format: Plate Number\n\n");
                     foreach (string vehicleLicencePlate in m_GarageLogic.GetPlateList())
                     {
-                         sb.Append(counter);
-                         sb.Append(". PlateNumber:");
-                         sb.Append(vehicleLicencePlate);
-                         sb.Append(" | State: ");
-                         sb.Append(m_GarageLogic.getVehicleState(vehicleLicencePlate));
-                         sb.Append("\n");
-                         ++counter;
+                         if (((int)(m_GarageLogic.getVehicleState(vehicleLicencePlate))) == int.Parse(VehicleStatus))
+                         {
+                              sb.Append(counter);
+                              sb.Append(". PlateNumber:");
+                              sb.Append(vehicleLicencePlate);
+                              sb.Append("\n");
+                              ++counter;
+                         }
+                    }
+                    if(counter == 1)
+                    {
+                         sb.Append("Nothing to display\n");
                     }
                }
                lastActionMessage = sb.ToString();
@@ -300,14 +313,11 @@ namespace Ex03.ConsoleUI
 
                //TODO: duplicating code
                Console.WriteLine("Hello! Welcome to the wheels section\nif you want to enter the same information for all wheels please press 1, otherwise press any other key.");
-               if(Console.ReadLine() == "1")
+               string WheelManufacturerName;
+               string CurrentAirPressure;
+               if (Console.ReadLine() == "1")
                {
-                    Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
-                    string WheelManufacturerName = Console.ReadLine();
-                    Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
-                    Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
-                    string CurrentAirPressure = Console.ReadLine();
-                    checkValidCurrentAirPressureInput(CurrentAirPressure);
+                    wheelInput(newVehicle, out WheelManufacturerName, out CurrentAirPressure);     
                     m_GarageLogic.AddWheels(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure));
                }
                else
@@ -316,14 +326,7 @@ namespace Ex03.ConsoleUI
                     foreach(Wheel wheel in newVehicle.Wheels)
                     {
                          Console.WriteLine("Here you will enter information for wheel number {0}:", wheelIndex + 1);
-                         //TODO - create new func
-                         Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
-                         string WheelManufacturerName = Console.ReadLine();
-                         Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
-                         Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
-                         string CurrentAirPressure = Console.ReadLine();
-                         checkValidCurrentAirPressureInput(CurrentAirPressure);
-                         //TODO - until here
+                         wheelInput(newVehicle, out WheelManufacturerName, out CurrentAirPressure);
                          m_GarageLogic.AddSingleWheel(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure), wheelIndex);
                          wheelIndex++;
                     }
@@ -336,6 +339,16 @@ namespace Ex03.ConsoleUI
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
                lastActionMessage = "The vehicle has been succesfully added to the data base\n";
         }
+
+          private void wheelInput(Vehicle i_Vehicle, out string i_ManufecturerName, out string i_CurrentAirPressure)
+          {
+               Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
+               i_ManufecturerName = Console.ReadLine();
+               Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(i_Vehicle));
+               Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
+               i_CurrentAirPressure  = Console.ReadLine();
+               checkValidCurrentAirPressureInput(i_CurrentAirPressure);
+          }
 
           private void specialConditions(Vehicle i_NewVehicle)
           {

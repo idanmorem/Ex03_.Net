@@ -15,7 +15,6 @@
                return ((m_BatteryTimeLeft / m_MaxBatteryTime) * 100);
           }
 
-          //TODO: updated - new
           public override void CalcCurrentEnergy()
           {
                m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
@@ -30,6 +29,7 @@
           {
                return MaxBatteryTime;
           }
+
           public float BatteryTimeLeft
           {
                get => m_BatteryTimeLeft;

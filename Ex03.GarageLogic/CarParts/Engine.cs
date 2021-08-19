@@ -20,8 +20,6 @@
           public abstract float GetAmountOfEnergy();
           public abstract float GetMaxAmountOfEnergy();
 
-
-
           public enum eEngineType
           {
                Fuel,
