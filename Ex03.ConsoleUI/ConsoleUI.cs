@@ -263,6 +263,8 @@ namespace Ex03.ConsoleUI
                string vehicleType = Console.ReadLine();
                checkValidVehicleTypeInput(vehicleType);
                Vehicle newVehicle = m_GarageLogic.CreateVehicle((Vehicle.eVehicleType)Enum.Parse(typeof(Vehicle.eVehicleType), vehicleType));
+               
+               specialConditions(newVehicle);
 
                Console.WriteLine("Hello! Please enter the model name, followed by an ENTER.");
                string ModelName = Console.ReadLine();
@@ -333,6 +335,7 @@ namespace Ex03.ConsoleUI
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
                lastActionMessage = "The vehicle has been succesfully added to the data base\n";
+              
 
             //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
         }
