@@ -103,7 +103,7 @@ namespace Ex03.ConsoleUI
                
                StringBuilder sb = new StringBuilder();
                sb.Append("License Number: ");
-               sb.Append(bundle.LicenseNumber);
+               sb.Append(licensePlateNumber);
                sb.Append("\nModel: ");
                sb.Append(clonedVehicle.ModelName);
                sb.Append("\nOwners: ");
@@ -111,7 +111,7 @@ namespace Ex03.ConsoleUI
                sb.Append("\nStatus: ");
                sb.Append(clonedVehicle.Status);
                int wheelIndex = 0;
-               foreach (Wheel wheel in bundle.Wheels)
+               foreach (Wheel wheel in clonedVehicle.Wheels)
                {
                     sb.Append("\n\nWheel number ");
                     sb.Append(wheelIndex + 1);
@@ -123,7 +123,7 @@ namespace Ex03.ConsoleUI
                     wheelIndex++;
                }
 
-               if (bundle.Engine is FuelEngine)
+               if (clonedVehicle.CurrentEngine is FuelEngine)
                {
                     sb.Append("\n\nEngine fuel precentage is: ");
                     sb.Append(clonedVehicle.CurrentEngine.EnergyPercent);
@@ -131,7 +131,7 @@ namespace Ex03.ConsoleUI
                     sb.Append("\nEngine fuel type is: ");
                     sb.Append((clonedVehicle.CurrentEngine as FuelEngine).FuelType.ToString());
                }
-               else if (bundle.Engine is ElectricEngine)
+               else if (clonedVehicle.CurrentEngine is ElectricEngine)
                {
                     sb.Append("\n\nEngine battery precentage is: ");
                     sb.Append(clonedVehicle.CurrentEngine.EnergyPercent);
