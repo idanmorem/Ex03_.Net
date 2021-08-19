@@ -25,5 +25,10 @@
                Fuel,
                Electric
           }
+          
+          public Engine ShallowClone()
+          {
+               return this.MemberwiseClone() as Engine;
+          }
      }
 }
