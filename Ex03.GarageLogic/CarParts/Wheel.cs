@@ -6,7 +6,7 @@
           private float m_CurrentAirPressure;
           private float m_MaxAirPressure;
 
-          public Wheel() 
+          public Wheel()
           {
 
           }

@@ -28,9 +28,7 @@ namespace Ex03.ConsoleUI
           public void GarageMenu()
           {
 
-            Console.WriteLine("Salutations!~");
-
-            createTestVehicles(); //for tests ONLY
+               createTestVehicles(); //for tests ONLY
                bool contBrowsingMenu = true;
                while (contBrowsingMenu)
                {
@@ -99,9 +97,7 @@ namespace Ex03.ConsoleUI
 
           private void ExhibitSpecificCarToConsole()
           {
-               Console.WriteLine("Sup, here you can enter a vehicles license's plate and get tons of data on the vehicle!" +
-                                 " how cool is that???");
-               Console.WriteLine("Enter a license plate of a vehicle within our garage, if the vehicle isn't found here, you'll be informed correspondingly.");
+               Console.WriteLine("\nPlease enter the license number, followed by an ENTER.");
                GarageLogicC.VehicleDTOBundle bundle = m_GarageLogic.GetVehicleBundle(Console.ReadLine());
                StringBuilder sb = new StringBuilder();
                sb.Append("License Number: ");
@@ -116,25 +112,28 @@ namespace Ex03.ConsoleUI
                foreach (Wheel wheel in bundle.Wheels)
                {
                     sb.Append("\n\nWheel number ");
-                    sb.Append(wheelIndex);
+                    sb.Append(wheelIndex + 1);
                     sb.Append(":\nWheels manufecturer: ");
                     sb.Append(bundle.Wheels[wheelIndex].ManufacturerName);
                     sb.Append("\nWheels Pressure: ");
                     sb.Append(bundle.Wheels[wheelIndex].CurrentAirPressure);
+                    sb.Append(" psi");
                     wheelIndex++;
                }
 
                if (bundle.Engine is FuelEngine)
                {
-                    sb.Append("\nEngine fuel precentage is: ");
+                    sb.Append("\n\nEngine fuel precentage is: ");
                     sb.Append(bundle.Engine.EnergyPercent);
+                    sb.Append("%");
                     sb.Append("\nEngine fuel type is: ");
                     sb.Append((bundle.Engine as FuelEngine).FuelType.ToString());
                }
-               else if(bundle.Engine is ElectricEngine)
+               else if (bundle.Engine is ElectricEngine)
                {
-                    sb.Append("\nEngine battery precentage is: ");
+                    sb.Append("\n\nEngine battery precentage is: ");
                     sb.Append(bundle.Engine.EnergyPercent);
+                    sb.Append("%");
                }
                sb.Append("\n");
                lastActionMessage = sb.ToString();
@@ -142,20 +141,20 @@ namespace Ex03.ConsoleUI
 
           private void FillElectricMotorInput()
           {
-               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
                m_GarageLogic.CheckIfEngineIsElectric(LicenseNumber);
                Console.WriteLine("The current amount of battery hours left is {0} out of {1}", m_GarageLogic.GetAmountOfEnergy(LicenseNumber), m_GarageLogic.GetMaxAmoutOfEnergy(LicenseNumber));
-               Console.WriteLine("Hello! Please choose the amount of hours to fill, followed by an ENTER.");
+               Console.WriteLine("Please choose the amount of hours to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
-               lastActionMessage = "Success - the vehicle hours of battery left has been updated\n";
+               lastActionMessage = "The vehicle hours of battery left has been updated\n";
           }
 
           private void FillGasMotor()
           {
-               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
                m_GarageLogic.CheckIfEngineIsFuel(LicenseNumber);
@@ -172,36 +171,24 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Please choose the amount of fuel to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
-               lastActionMessage = "Success - the vehicle fuel amount has been updated\n";
+               lastActionMessage = "The vehicle fuel amount has been updated\n";
           }
 
           private void addTirePressureInput()
           {
-               Console.WriteLine("Here you can fill a vehicle's tires to it's maximum capacity");
-
-               Console.WriteLine("If you dont want to fill air, press 1, followed by an enter");
-               Console.WriteLine("Otherwise, Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("Please enter the license number, followed by an ENTER.");
 
                string userChoice = Console.ReadLine();
-
-               if (userChoice == "1")
-               {
-                    lastActionMessage = "Action successfully canceled.\n";
-               }
-               else
-               {
-                    m_GarageLogic.FillWheelsAirPressure(userChoice);
-                    lastActionMessage = "Success - The wheel's pressure is maximum\n";
-               }
+               m_GarageLogic.FillWheelsAirPressure(userChoice);
+               lastActionMessage = "The wheel's air pressure is maximum\n";
           }
 
           private void ChangeVehicleStateConsoleInput()
           {
-               Console.WriteLine("Here you can change your vehicles state in the garage.");
-               Console.WriteLine("Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                m_GarageLogic.CheckIfVehicleExists(LicenseNumber);
-      
+
                int i = 0;
                foreach (Vehicle.eVehicleStatus Status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
                {
@@ -217,44 +204,34 @@ namespace Ex03.ConsoleUI
           {
                StringBuilder sb = new StringBuilder();
                int counter = 1;
-               Console.WriteLine("Here you can view a list of all the vehicles our lovely garage. ");
-               Console.WriteLine("The list consists of the plate-numbers and their current-states");
-               Console.WriteLine("if you wish the view the plate numbers only, press 1, otherwise, press any other key.");
+               Console.WriteLine("\nHere you can view a list of all the vehicles plate number in our garage.");
+               Console.WriteLine("if you wish to display the plate numbers only press 1, otherwise press any other key.");
+               sb.Append("List Format: Plate Number\n\n");
                if (Console.ReadLine() == "1")
                {
-                    sb.Append("List Format: Plate Number\n\n");
                     foreach (string vehicleLicencePlate in m_GarageLogic.GetPlateList())
                     {
-                         sb.Append(counter);
-                         sb.Append(". PlateNumber: ");
-                         sb.Append(vehicleLicencePlate);
-                         sb.Append("\n");
-                         ++counter;
+                         AppendVehiclePlateNumber(ref counter, ref sb, vehicleLicencePlate);
                     }
                }
                else
                {
-                    Console.WriteLine("Hello! Please choose the car status you wish to display:");
+                    Console.WriteLine("Please choose the car status you wish to display:");
                     int i = 0;
-                    foreach(Vehicle.eVehicleStatus status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
+                    foreach (Vehicle.eVehicleStatus status in Enum.GetValues(typeof(Vehicle.eVehicleStatus)))
                     {
                          Console.WriteLine("Press {0} to display status {1}", i, status.ToString());
                          i++;
                     }
                     string VehicleStatus = Console.ReadLine();
-                    sb.Append("List Format: Plate Number\n\n");
                     foreach (string vehicleLicencePlate in m_GarageLogic.GetPlateList())
                     {
                          if (((int)(m_GarageLogic.getVehicleState(vehicleLicencePlate))) == int.Parse(VehicleStatus))
                          {
-                              sb.Append(counter);
-                              sb.Append(". PlateNumber:");
-                              sb.Append(vehicleLicencePlate);
-                              sb.Append("\n");
-                              ++counter;
+                              AppendVehiclePlateNumber(ref counter, ref sb, vehicleLicencePlate);
                          }
                     }
-                    if(counter == 1)
+                    if (counter == 1)
                     {
                          sb.Append("Nothing to display\n");
                     }
@@ -262,9 +239,18 @@ namespace Ex03.ConsoleUI
                lastActionMessage = sb.ToString();
           }
 
+          private void AppendVehiclePlateNumber(ref int i_counter, ref StringBuilder i_StringBuilder, string i_LicensePlate)
+          {
+               i_StringBuilder.Append(i_counter);
+               i_StringBuilder.Append(". PlateNumber: ");
+               i_StringBuilder.Append(i_LicensePlate);
+               i_StringBuilder.Append("\n");
+               ++i_counter;
+          }
+
           private void insertNewVehicleUserConsoleInput()
           {
-               Console.WriteLine("Hello! Please choose a vehicle to add to the garage by the matching numbers, followed by an ENTER.");
+               Console.WriteLine("\nPlease choose a vehicle type to add to the garage by the matching numbers, followed by an ENTER.");
                int i = 0;
                foreach (Vehicle.eVehicleType Type in Enum.GetValues(typeof(Vehicle.eVehicleType)))
                {
@@ -275,26 +261,26 @@ namespace Ex03.ConsoleUI
                checkValidVehicleTypeInput(vehicleType);
                Vehicle newVehicle = m_GarageLogic.CreateVehicle((Vehicle.eVehicleType)Enum.Parse(typeof(Vehicle.eVehicleType), vehicleType));
 
-               Console.WriteLine("Hello! Please enter the model name, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the model name, followed by an ENTER.");
                string ModelName = Console.ReadLine();
                newVehicle.ModelName = ModelName;
 
-               Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                checkValidLicenseNumberInput(LicenseNumber);
                m_GarageLogic.CheckIfVehicleNotExists(LicenseNumber);
                //TODO: check if there isn't already a vehicle with the same LicenseNumber     
 
-               Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the owner name, followed by an ENTER.");
                string OwnerName = Console.ReadLine();
                newVehicle.OwnersName = OwnerName;
 
-               Console.WriteLine("Hello! Please enter the owner number, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the owner number, followed by an ENTER.");
                string PhoneNumber = Console.ReadLine();
                checkValidPhoneNumberInput(PhoneNumber);
                newVehicle.OwnersPhoneNumber = PhoneNumber;
 
-               Console.WriteLine("Hello! Please choose an engine type for your vehicle, followed by an ENTER.");
+               Console.WriteLine("\nPlease choose an engine type for your vehicle, followed by an ENTER.");
                i = 0;
                foreach (Engine.eEngineType Type in Enum.GetValues(typeof(Engine.eEngineType)))
                {
@@ -305,25 +291,25 @@ namespace Ex03.ConsoleUI
                checkValidEngineTypeInput(EngineType);
                m_GarageLogic.AddEngine(newVehicle, (Engine.eEngineType)Enum.Parse(typeof(Engine.eEngineType), EngineType));
 
-               Console.WriteLine("Hello! Please enter the precentage of energy left in the Vehicle, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the precentage of energy left in the Vehicle, followed by an ENTER.");
                string energyPrecentage = Console.ReadLine();
                checkValidEnergyPrecentageeInput(energyPrecentage);
                m_GarageLogic.AddPrecentage(newVehicle, float.Parse(energyPrecentage));
 
 
                //TODO: duplicating code
-               Console.WriteLine("Hello! Welcome to the wheels section\nif you want to enter the same information for all wheels please press 1, otherwise press any other key.");
+               Console.WriteLine("\nWelcome to the wheels section:\nif you want to enter the same information for all wheels please press 1, otherwise press any other key.");
                string WheelManufacturerName;
                string CurrentAirPressure;
                if (Console.ReadLine() == "1")
                {
-                    wheelInput(newVehicle, out WheelManufacturerName, out CurrentAirPressure);     
+                    wheelInput(newVehicle, out WheelManufacturerName, out CurrentAirPressure);
                     m_GarageLogic.AddWheels(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure));
                }
                else
                {
                     int wheelIndex = 0;
-                    foreach(Wheel wheel in newVehicle.Wheels)
+                    foreach (Wheel wheel in newVehicle.Wheels)
                     {
                          Console.WriteLine("Here you will enter information for wheel number {0}:", wheelIndex + 1);
                          wheelInput(newVehicle, out WheelManufacturerName, out CurrentAirPressure);
@@ -338,15 +324,15 @@ namespace Ex03.ConsoleUI
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
                lastActionMessage = "The vehicle has been succesfully added to the data base\n";
-        }
+          }
 
           private void wheelInput(Vehicle i_Vehicle, out string i_ManufecturerName, out string i_CurrentAirPressure)
           {
-               Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
+               Console.WriteLine("\nPlease enter the Wheel manufacturer name, followed by an ENTER.");
                i_ManufecturerName = Console.ReadLine();
-               Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(i_Vehicle));
-               Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
-               i_CurrentAirPressure  = Console.ReadLine();
+               Console.WriteLine("\nThe Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(i_Vehicle));
+               Console.WriteLine("Please enter the Wheels current air pressure, followed by an ENTER.");
+               i_CurrentAirPressure = Console.ReadLine();
                checkValidCurrentAirPressureInput(i_CurrentAirPressure);
           }
 
@@ -382,7 +368,7 @@ namespace Ex03.ConsoleUI
 
           private string handleBooleanCase(Vehicle i_NewVehicle, PropertyInfo i_UniquePropertyInfo)
           {
-               Console.WriteLine("Choosing " + i_UniquePropertyInfo.Name + ":");
+               Console.WriteLine("\nChoosing " + i_UniquePropertyInfo.Name + ":");
                Console.WriteLine("Press 1 if true or 2 if false");
                return Console.ReadLine();
           }
@@ -399,7 +385,7 @@ namespace Ex03.ConsoleUI
           private string handleEnumCase(Vehicle i_NewVehicle, PropertyInfo i_UniquePropertyInfo)
           {
                Type matchingTypeEnum = i_NewVehicle.getUniqueType(i_UniquePropertyInfo.Name);
-               Console.WriteLine("Choosing " + i_UniquePropertyInfo.Name + ":");
+               Console.WriteLine("\nChoosing " + i_UniquePropertyInfo.Name + ":");
                getEnumConsoleMessage(matchingTypeEnum);
 
                //user enters enum choice
@@ -476,10 +462,11 @@ namespace Ex03.ConsoleUI
 
           private void printMainMenu()
           {
+               Console.WriteLine("Welcome to our garage!\n");
                const string k_InsertNewCar = "Press 1 to ENTER A NEW VEHICLE into the garage";
                const string k_ExhibitLicencedPlates = "Press 2 to LIST ALL VEHICLES that are licenced in our garage.";
                const string k_ChangeState = "Press 3 to CHANGE a vehicles PROGRESS STATE.";
-               const string k_AddTirePressure = "Press 4 to ADD TIRE PRESSURE.";
+               const string k_AddTirePressure = "Press 4 to FILL TIRE PRESSURE TO MAXIMUM.";
                const string k_FillGas = "Press 5 to FILL GAS to a gasoline-based engine vehicle.";
                const string k_ChargeElectric = "Press 6 to CHARGE an ELECTRIC-based engine vehicle";
                const string k_ExhibitSingle = "Press 7 to EXHIBIT a VEHICLE.";

@@ -61,7 +61,7 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
                ((FuelEngine)currentVehicle.CurrentEngine).AddFuel(i_amountToFill, i_fuelType);
           }
-        
+
           public void CheckIfVehicleExists(string i_input)
           {
                if (r_VehiclesInGarage.ContainsKey(i_input) == false)
@@ -72,7 +72,7 @@ namespace Ex03.GarageLogic
 
           public void CheckIfVehicleNotExists(string i_input)
           {
-               if(r_VehiclesInGarage.ContainsKey(i_input) == true)
+               if (r_VehiclesInGarage.ContainsKey(i_input) == true)
                {
                     throw new System.ArgumentException();
                }
@@ -80,7 +80,7 @@ namespace Ex03.GarageLogic
 
           public void AddWheels(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure)
           {
-               foreach(Wheel wheel in i_Vehicle.Wheels)
+               foreach (Wheel wheel in i_Vehicle.Wheels)
                {
                     wheel.CurrentAirPressure = i_CurrentAirPressure;
                     wheel.ManufacturerName = i_ManufacturerName;
@@ -145,44 +145,44 @@ namespace Ex03.GarageLogic
                ((ElectricEngine)currentVehicle.CurrentEngine).Charge(i_amountToFill);
           }
 
-        //assumes the license plate nubmer is valid already
-        public void ChangeStatus(string i_VehicleLicensePlate, Vehicle.eVehicleStatus i_NewStatus)
-        {
-             Vehicle currentVehicle = r_VehiclesInGarage[i_VehicleLicensePlate];
-             currentVehicle.Status = i_NewStatus;
-             }
+          //assumes the license plate nubmer is valid already
+          public void ChangeStatus(string i_VehicleLicensePlate, Vehicle.eVehicleStatus i_NewStatus)
+          {
+               Vehicle currentVehicle = r_VehiclesInGarage[i_VehicleLicensePlate];
+               currentVehicle.Status = i_NewStatus;
+          }
 
 
-            public Dictionary<string, Vehicle>.KeyCollection GetPlateList()
+          public Dictionary<string, Vehicle>.KeyCollection GetPlateList()
           {
                return r_VehiclesInGarage.Keys;
           }
 
-        public Vehicle.eVehicleStatus getVehicleState(string i_VehicleLicensePlate)
-        {
-             Vehicle currentVehicle;
-             r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
-             return currentVehicle.Status;
-        }
+          public Vehicle.eVehicleStatus getVehicleState(string i_VehicleLicensePlate)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
+               return currentVehicle.Status;
+          }
 
-        public VehicleDTOBundle GetVehicleBundle(string i_VehicleLicensePlate)
-        {
-             Vehicle currentVehicle;
-             r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
-             return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
-             }
+          public VehicleDTOBundle GetVehicleBundle(string i_VehicleLicensePlate)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
+               return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
+          }
 
-        public void FillWheelsAirPressure(string i_LicenseNumber)
-        {
-             Vehicle currentVehicle;
-             r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out currentVehicle);
-             foreach (Wheel wheel in r_VehiclesInGarage[i_LicenseNumber].Wheels)
-             {
-                  wheel.CurrentAirPressure = wheel.MaxAirPressure;
-             }
-        }
+          public void FillWheelsAirPressure(string i_LicenseNumber)
+          {
+               Vehicle currentVehicle;
+               r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out currentVehicle);
+               foreach (Wheel wheel in r_VehiclesInGarage[i_LicenseNumber].Wheels)
+               {
+                    wheel.CurrentAirPressure = wheel.MaxAirPressure;
+               }
+          }
 
-        public class VehicleDTOBundle
+          public class VehicleDTOBundle
           {
                private string m_LicenseNumber;
 

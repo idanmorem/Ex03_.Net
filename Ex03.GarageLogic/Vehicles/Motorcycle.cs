@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
                get => m_EngineSize;
                set
                {
-                    if(value <= 0)
+                    if (value <= 0)
                     {
                          throw new ValueOutOfRangeException();
                     }

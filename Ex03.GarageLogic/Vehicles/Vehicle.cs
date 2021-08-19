@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
                m_Status = eVehicleStatus.InProgress;
                r_NumberOfWheels = i_NumberOfWheels;
                m_Wheels = new Wheel[(int)i_NumberOfWheels];
-               for(int i = 0; i < (int)i_NumberOfWheels; i++)
+               for (int i = 0; i < (int)i_NumberOfWheels; i++)
                {
                     m_Wheels[i] = new Wheel();
                }

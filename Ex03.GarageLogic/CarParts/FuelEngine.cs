@@ -70,11 +70,11 @@
                get => m_MaxFuelAmount;
                set
                {
-                    if(value < 0)
+                    if (value < 0)
                     {
                          throw new ValueOutOfRangeException();
                     }
-                    else if(value < m_CurrentFuelAmount)
+                    else if (value < m_CurrentFuelAmount)
                     {
                          throw new System.ArgumentException();
                     }

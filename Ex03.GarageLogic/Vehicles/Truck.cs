@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
                get => m_MaxLoad;
                set
                {
-                    if(value < 0)
+                    if (value < 0)
                     {
                          throw new ValueOutOfRangeException();
                     }

@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
                get => m_Color;
                set
                {
-                    if(value <= eCarColor.Black && value >= eCarColor.Red)
+                    if (value <= eCarColor.Black && value >= eCarColor.Red)
                     {
                          m_Color = value;
                     }

@@ -24,6 +24,6 @@
           {
                Fuel,
                Electric
-          }       
+          }
      }
 }
