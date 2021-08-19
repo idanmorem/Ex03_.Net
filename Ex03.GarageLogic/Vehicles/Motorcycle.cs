@@ -1,8 +1,11 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+using System.Reflection;
+
+namespace Ex03.GarageLogic
 {
      public class Motorcycle : Vehicle
      {
-          private eLiscenceType m_LiscenceType;
+          private eLicenseType m_LiscenceType;
           private int m_EngineSize;
 
           public Motorcycle() : base(Wheel.eNumberOfWheels.TwoWheels) { }
@@ -24,18 +27,54 @@
                }
           }
 
-          public eLiscenceType LiscenceType
+          public eLicenseType LicenseType
           {
                get => m_LiscenceType;
                set => m_LiscenceType = value;
           }
-     }
 
-     public enum eLiscenceType
-     {
-          A,
-          B1,
-          AA,
-          BB
+          public override Type getUniqueType(string i_PropertyName)
+          {
+               Type specificType;
+               if (i_PropertyName == "EngineSize")
+               {
+                    specificType = this.EngineSize.GetType();
+               }
+               else if (i_PropertyName == "LicenseType")
+               {
+                    specificType = typeof(Motorcycle.eLicenseType);
+               }
+               else
+               {
+                    throw new ArgumentException("BadType");
+               }
+
+               return specificType;
+          }
+
+          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
+          {
+               object parsedValue = null;
+               string strValue = valueToBeParsed as string;
+               //Wheel wheel in i_Vehicle.Wheels
+               if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
+               {
+                    //TODO: check valid input
+                    parsedValue = int.Parse(strValue);
+               }
+               else //it's the license type
+               {
+                    parsedValue = Enum.Parse(typeof(eLicenseType), strValue);
+               }
+
+               return parsedValue;
+          }
+          public enum eLicenseType
+          {
+               A,
+               B1,
+               AA,
+               BB
+          }
      }
 }

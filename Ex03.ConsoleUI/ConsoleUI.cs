@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -329,6 +330,8 @@ namespace Ex03.ConsoleUI
                     }
                }
 
+               specialConditions(newVehicle);
+
                //i try so hard
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
@@ -337,7 +340,75 @@ namespace Ex03.ConsoleUI
             //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
         }
 
-        private void checkValidCurrentAirPressureInput(string i_input)
+          private void specialConditions(Vehicle i_NewVehicle)
+          {
+
+               foreach (PropertyInfo uniquePropertyInfo in m_GarageLogic.GetVehiclesUniqueProperties(i_NewVehicle))
+               {
+
+                    //prints required data
+
+                    string newPropertyValue;
+
+                    if (uniquePropertyInfo.PropertyType.BaseType == typeof(Enum))
+                    {
+                         newPropertyValue = handleEnumCase(i_NewVehicle, uniquePropertyInfo);
+                    }
+                    else if (uniquePropertyInfo.PropertyType == typeof(bool))
+                    {
+                         newPropertyValue = handleBooleanCase(i_NewVehicle, uniquePropertyInfo);
+                    }
+                    else
+                    {
+                         newPropertyValue = handleSingleInputCase(i_NewVehicle, uniquePropertyInfo);
+                    }
+
+
+
+                    m_GarageLogic.setValueForUniqueProperty(uniquePropertyInfo, i_NewVehicle, newPropertyValue);
+               }
+
+          }
+
+          private string handleBooleanCase(Vehicle i_NewVehicle, PropertyInfo i_UniquePropertyInfo)
+          {
+               Console.WriteLine("Choosing " + i_UniquePropertyInfo.Name + ":");
+               Console.WriteLine("Press 1 if true or 2 if false");
+               return Console.ReadLine();
+          }
+
+          //works for int, string, float, double
+          //does not work for boolean
+          //does not work for Point(int x, int y)
+          private string handleSingleInputCase(Vehicle i_NewVehicle, PropertyInfo i_UniquePropertyInfo)
+          {
+               Console.WriteLine("Enter the desired " + i_UniquePropertyInfo.Name + ":");
+               return Console.ReadLine();
+          }
+
+          private string handleEnumCase(Vehicle i_NewVehicle, PropertyInfo i_UniquePropertyInfo)
+          {
+               Type matchingTypeEnum = i_NewVehicle.getUniqueType(i_UniquePropertyInfo.Name);
+               Console.WriteLine("Choosing " + i_UniquePropertyInfo.Name + ":");
+               getEnumConsoleMessage(matchingTypeEnum);
+
+               //user enters enum choice
+               return Console.ReadLine();
+               //TODO: check input
+               //returns the input for the settergu
+          }
+
+          private void getEnumConsoleMessage(Type i_MatchingTypeEnum)
+          {
+               int i = 0;
+               foreach (Enum enumType in Enum.GetValues(i_MatchingTypeEnum))
+               {
+                    Console.WriteLine("Press " + i + " to pick a " + enumType.ToString());
+                    ++i;
+               }
+          }
+
+          private void checkValidCurrentAirPressureInput(string i_input)
           {
                if (float.Parse(i_input) < 0)
                {

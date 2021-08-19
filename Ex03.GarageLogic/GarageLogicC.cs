@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Ex03.GarageLogic
 {
@@ -296,6 +297,28 @@ namespace Ex03.GarageLogic
           // }
 
           //TODO: add UniqueDTO
- 
+
+          public void setValueForUniqueProperty(PropertyInfo i_UniquePropertyInfo, Vehicle i_NewVehicle, string i_NewPropertyValue)
+          {
+
+               i_UniquePropertyInfo.SetValue(i_NewVehicle, i_NewVehicle.AutonomicParser(i_UniquePropertyInfo, i_NewPropertyValue), null);
+          }
+
+          public List<PropertyInfo> GetVehiclesUniqueProperties(Vehicle i_NewVehicle)
+          {
+               PropertyInfo[] allProperties = i_NewVehicle.GetType().GetProperties();
+               List<PropertyInfo> uniqueProperties = new List<PropertyInfo>();
+               foreach (PropertyInfo currentCheckedProperty in allProperties)
+               {
+                    string checkedPropertyName = currentCheckedProperty.Name;
+
+                    if (typeof(Vehicle).GetProperty(checkedPropertyName) == null) //if vehicle doesn't have this propery, it's unique.
+                    {
+                         uniqueProperties.Add(currentCheckedProperty);
+                    }
+               }
+
+               return uniqueProperties;
+          }
      }
 }
