@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Ex03.GarageLogic
 {
@@ -21,11 +22,16 @@ namespace Ex03.GarageLogic
                     }
                     else
                     {
-                         throw new ValueOutOfRangeException();
+                         throw new Exception("LOOOOOOOOOOOOL");
+//                         throw new ValueOutOfRangeException(k_MaxColorVal, k_MinColorVal);
                     }
                }
           }
 
+          private const int k_MaxColorVal = 3;
+          private const int k_MinColorVal = 0;
+          private const int k_MaxDoorsVal = 3;
+          private const int k_MinDoorsVal = 0;
           public eNumberOfDoors NumberOfDoors
           {
                get => m_NumberOfDoors;
@@ -37,7 +43,7 @@ namespace Ex03.GarageLogic
                     }
                     else
                     {
-                         throw new ValueOutOfRangeException();
+                         throw new ValueOutOfRangeException(k_MaxDoorsVal, k_MinDoorsVal);
                     }
                }
           }

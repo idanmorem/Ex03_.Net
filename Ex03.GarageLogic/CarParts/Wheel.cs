@@ -11,17 +11,17 @@
 
           }
 
-          private void AddAir(float i_AmountOfAirToAdd)
-          {
-               if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure)
-               {
-                    m_CurrentAirPressure = m_CurrentAirPressure + i_AmountOfAirToAdd;
-               }
-               else
-               {
-                    throw new ValueOutOfRangeException();
-               }
-          }
+          // private void AddAir(float i_AmountOfAirToAdd)
+          // {
+          //      if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure)
+          //      {
+          //           m_CurrentAirPressure = m_CurrentAirPressure + i_AmountOfAirToAdd;
+          //      }
+          //      else
+          //      {
+          //           throw new ValueOutOfRangeException();
+          //      }
+          // }
 
           public string ManufacturerName
           {
@@ -40,11 +40,12 @@
                     }
                     else
                     {
-                         throw new ValueOutOfRangeException();
+                         throw new ValueOutOfRangeException(MaxAirPressure, k_MinAirPressure);
                     }
                }
           }
 
+          private const int k_MinAirPressure = 0;
           public float MaxAirPressure
           {
                get => m_MaxAirPressure;

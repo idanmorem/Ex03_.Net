@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
      public class ElectricEngine : Engine
      {
@@ -37,11 +39,11 @@
                {
                     if (value < m_BatteryTimeLeft)
                     {
-                         throw new ValueOutOfRangeException();
+                         throw new ArgumentException();
                     }
                     else if (value > m_MaxBatteryTime)
                     {
-                         throw new System.ArgumentException();
+                         throw new ArgumentException();
                     }
                     else
                     {
@@ -58,7 +60,7 @@
                {
                     if (value < 0)
                     {
-                         throw new ValueOutOfRangeException();
+                         throw new ArgumentException();
                     }
                     else if (value < m_BatteryTimeLeft)
                     {

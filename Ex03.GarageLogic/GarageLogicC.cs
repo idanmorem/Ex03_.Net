@@ -11,9 +11,12 @@ namespace Ex03.GarageLogic
 
           public const int k_NumberOfAvailableMethodsInGarage = 8;
           public const string k_ParsingToIntError = "Error! You've been asked to enter a whole number(here's a clue - you haven't).";
+          public const float k_MaxPrecentage = 100;
+          public const float k_MinPrecentage = 0;
+          public const int k_maxNumberOfStatuses = 2;
+          public const int k_MinNumberOfStatuses = 0;
 
-
-        public GarageLogicC()
+          public GarageLogicC()
           {
                r_VehiclesInGarage = new Dictionary<string, Vehicle>();
                r_Factory = new VehicleFactory();
@@ -84,7 +87,7 @@ namespace Ex03.GarageLogic
                }
                if (r_VehiclesInGarage.ContainsKey(i_input) == true)
                {
-                    throw new System.ArgumentException();
+                    throw new ArgumentException();
                }
           }
 
@@ -123,7 +126,7 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.TryGetValue(i_input, out currentVehicle);
                if (!(currentVehicle.CurrentEngine is FuelEngine))
                {
-                    throw new System.ArgumentException();
+                    throw new ArgumentException();
                }
           }
 
@@ -133,7 +136,7 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.TryGetValue(i_ID, out currentVehicle);
                if (i_input != (currentVehicle.CurrentEngine as FuelEngine).FuelType)
                {
-                    throw new System.ArgumentException();
+                    throw new ArgumentException();
                }
           }
 
@@ -143,7 +146,7 @@ namespace Ex03.GarageLogic
                r_VehiclesInGarage.TryGetValue(i_input, out currentVehicle);
                if (!(currentVehicle.CurrentEngine is ElectricEngine))
                {
-                    throw new System.FormatException();
+                    throw new FormatException();
                }
           }
 
@@ -286,7 +289,7 @@ namespace Ex03.GarageLogic
           
            public List<PropertyInfo> GetVehiclesUniqueProperties(string i_LicenseNumber)
         {
-             GarageLogic.Vehicle copiedVehicle;
+             Vehicle copiedVehicle;
              if (r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out copiedVehicle) == false)
              {
                   throw new KeyNotFoundException();
@@ -296,7 +299,7 @@ namespace Ex03.GarageLogic
 
         public Vehicle getVehicleCopy(string i_ReadLine)
           {
-               GarageLogic.Vehicle copiedVehicle;
+               Vehicle copiedVehicle;
                if (r_VehiclesInGarage.TryGetValue(i_ReadLine, out copiedVehicle) == false)
                {
                 throw new KeyNotFoundException(); 
