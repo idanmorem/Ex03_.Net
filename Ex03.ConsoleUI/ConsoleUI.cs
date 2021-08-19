@@ -147,55 +147,6 @@ namespace Ex03.ConsoleUI
             lastActionMessage = sb.ToString();
         }
 
-        // private void ExhibitSpecificCarToConsole()
-        // {
-        //      Console.WriteLine("Sup, here you can enter a vehicles license's plate and get tons of data on the vehicle!" +
-        //                        " how cool is that???");
-        //      Console.WriteLine("Enter a license plate of a vehicle within our garage, if the vehicle isn't found here, you'll be informed correspondingly.");
-        //      GarageLogicC.Vehicle bundle = m_GarageLogic.GetVehicleBundle(Console.ReadLine());
-        //      StringBuilder sb = new StringBuilder();
-        //      sb.Append("License Number: ");
-        //      sb.Append(bundle.LicenseNumber);
-        //      sb.Append("\nModel: ");
-        //      sb.Append(bundle.Model);
-        //      sb.Append("\nOwners: ");
-        //      sb.Append(bundle.Owners);
-        //      sb.Append("\nStatus: ");
-        //      sb.Append(bundle.Status);
-        //      int wheelIndex = 0;
-        //      foreach (Wheel wheel in bundle.Wheels)
-        //      {
-        //           sb.Append("\n\nWheel number ");
-        //           sb.Append(wheelIndex);
-        //           sb.Append(":\nWheels manufecturer: ");
-        //           sb.Append(bundle.Wheels[wheelIndex].ManufacturerName);
-        //           sb.Append("\nWheels Pressure: ");
-        //           sb.Append(bundle.Wheels[wheelIndex].CurrentAirPressure);
-        //           wheelIndex++;
-        //      }
-        //
-        //      if (bundle.Engine is FuelEngine)
-        //      {
-        //           sb.Append("\nEngine fuel precentage is: ");
-        //           sb.Append(bundle.Engine.EnergyPercent);
-        //           sb.Append("\nEngine fuel type is: ");
-        //           sb.Append((bundle.Engine as FuelEngine).FuelType.ToString());
-        //      }
-        //      else if(bundle.Engine is ElectricEngine)
-        //      {
-        //           sb.Append("\nEngine battery precentage is: ");
-        //           sb.Append(bundle.Engine.EnergyPercent);
-        //      }
-        //      sb.Append("\n");
-        //
-        //      foreach (PropertyInfo vehiclesUniqueProperty in m_GarageLogic.GetVehiclesUniqueProperties(bundle.LicenseNumber))
-        //      {
-        //           
-        //      }
-        //
-        //      lastActionMessage = sb.ToString();
-        // }
-
         private void FillElectricMotorInput()
           {
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
@@ -553,6 +504,13 @@ namespace Ex03.ConsoleUI
                m_GarageLogic.AddEngine(firstCar, Engine.eEngineType.Fuel);
                firstCar.CurrentEngine.EnergyPercent = 50;
                firstCar.CurrentEngine.CalcCurrentEnergy();
+               foreach (var wheel in firstCar.Wheels)
+               {
+                    wheel.CurrentAirPressure = 10;
+                    wheel.ManufacturerName = "2KOOL4SKOOL";
+               }
+
+
 
                Vehicle secondCar = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Car);
                secondCar.ModelName = "Mitsubishi-Attrage";
@@ -561,16 +519,42 @@ namespace Ex03.ConsoleUI
                m_GarageLogic.AddEngine(secondCar, Engine.eEngineType.Electric);
                secondCar.CurrentEngine.EnergyPercent = 20;
                secondCar.CurrentEngine.CalcCurrentEnergy();
+               foreach (var wheel in secondCar.Wheels)
+               {
+                    wheel.CurrentAirPressure = 15;
+                    wheel.ManufacturerName = "2KOOL5SKOOL";
+               }
 
-               Vehicle firstMotorCycle = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Motorcycle);
+
+            Vehicle firstMotorCycle = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Motorcycle);
                firstMotorCycle.ModelName = "Honda-NemesisXG";
                firstMotorCycle.OwnersName = "Nahum";
                firstMotorCycle.OwnersPhoneNumber = "3333333333";
                m_GarageLogic.AddEngine(firstMotorCycle, Engine.eEngineType.Fuel);
+               secondCar.CurrentEngine.EnergyPercent = 30;
+            foreach (var wheel in firstMotorCycle.Wheels)
+               {
+                    wheel.CurrentAirPressure = 20;
+                    wheel.ManufacturerName = "2KOOL6SKOOL";
+               }
+               
 
-               m_GarageLogic.AddVehicle(firstCar, "LN11111");
+            Vehicle firstTruck = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Truck);
+            firstTruck.ModelName = "BigMoma";
+            firstTruck.OwnersName = "AlsoABigMoma";
+            firstTruck.OwnersPhoneNumber = "1234";
+            m_GarageLogic.AddEngine(firstTruck, Engine.eEngineType.Fuel);
+            secondCar.CurrentEngine.EnergyPercent = 40;
+            foreach (var wheel in firstTruck.Wheels)
+            {
+                 wheel.CurrentAirPressure = 25;
+                 wheel.ManufacturerName = "2KOOL7SKOOL";
+            }
+
+            m_GarageLogic.AddVehicle(firstCar, "11111");
                m_GarageLogic.AddVehicle(secondCar, "80085");
-               m_GarageLogic.AddVehicle(firstMotorCycle, "RAKBB");
-          }
+               m_GarageLogic.AddVehicle(firstMotorCycle, "22222");
+               m_GarageLogic.AddVehicle(firstTruck, "33333");
+        }
      }
 }

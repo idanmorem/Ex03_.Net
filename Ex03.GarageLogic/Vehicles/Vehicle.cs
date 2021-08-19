@@ -84,6 +84,7 @@ namespace Ex03.GarageLogic
 
         public virtual Vehicle DeepClone()
         {
+            //      Object testClone = this.MemberwiseClone();
             Vehicle cloneVehicle = (Vehicle)this.MemberwiseClone();
             int i = 0;
             foreach (Wheel wheel in cloneVehicle.Wheels)
@@ -93,17 +94,6 @@ namespace Ex03.GarageLogic
 
             cloneVehicle.CurrentEngine = CurrentEngine.ShallowClone();
             return cloneVehicle;
-            //good ModelName = vehicleToBeCloned.ModelName; 
-            //good NumberOfWheels = vehicleToBeCloned.NumberOfWheels;
-            //taken care copy wheels
-            //good private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
-            //good private string m_OwnersName;
-            //good private string m_OwnersPhoneNumber;
-            //good private eVehicleStatus m_Status;
-            //good private Engine m_CurrentEngine;
-
         }
-
-        // public abstract string GetPropertyStrValue(PropertyInfo i_VehiclesUniqueProperty);
     }
 }
