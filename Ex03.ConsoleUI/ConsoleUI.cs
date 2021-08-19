@@ -48,7 +48,7 @@ namespace Ex03.ConsoleUI
                     }
                     catch (KeyNotFoundException e)
                     {
-                         lastActionMessage = "ERROR: The entered license plate does not exist in our garage!";
+                         lastActionMessage = "ERROR: The entered license plate does not exist in our garage!\n";
                     }
                     catch (Exception e)
                     {
@@ -112,10 +112,18 @@ namespace Ex03.ConsoleUI
                sb.Append(bundle.Owners);
                sb.Append("\nStatus: ");
                sb.Append(bundle.Status);
-               sb.Append("\nWheels manufecturer: ");
-               sb.Append(bundle.Wheels[0].ManufacturerName);
-               sb.Append("\nWheels Pressure: ");
-               sb.Append(bundle.Wheels[0].CurrentAirPressure);
+               int wheelIndex = 0;
+               foreach (Wheel wheel in bundle.Wheels)
+               {
+                    sb.Append("\n\nWheel number ");
+                    sb.Append(wheelIndex);
+                    sb.Append(":\nWheels manufecturer: ");
+                    sb.Append(bundle.Wheels[wheelIndex].ManufacturerName);
+                    sb.Append("\nWheels Pressure: ");
+                    sb.Append(bundle.Wheels[wheelIndex].CurrentAirPressure);
+                    wheelIndex++;
+               }
+
                if (bundle.Engine is FuelEngine)
                {
                     sb.Append("\nEngine fuel precentage is: ");
@@ -143,7 +151,7 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Hello! Please choose the amount of hours to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.Charge(LicenseNumber, float.Parse(amountToFill));
-               lastActionMessage = "Success - the vehicle hours of battery left has been updated";
+               lastActionMessage = "Success - the vehicle hours of battery left has been updated\n";
           }
 
           private void FillGasMotor()
@@ -165,7 +173,7 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Please choose the amount of fuel to fill, followed by an ENTER.");
                string amountToFill = Console.ReadLine();
                m_GarageLogic.AddFuel(LicenseNumber, (FuelEngine.eFuelType)Enum.Parse(typeof(FuelEngine.eFuelType), newFuelType), float.Parse(amountToFill));
-               lastActionMessage = "Success - the vehicle fuel amount has been updated";
+               lastActionMessage = "Success - the vehicle fuel amount has been updated\n";
           }
 
           private void addTirePressureInput()
@@ -179,12 +187,12 @@ namespace Ex03.ConsoleUI
 
                if (userChoice == "1")
                {
-                    lastActionMessage = "Action successfully canceled.";
+                    lastActionMessage = "Action successfully canceled.\n";
                }
                else
                {
                     m_GarageLogic.FillWheelsAirPressure(userChoice);
-                    lastActionMessage = "Success - The wheel's pressure is maximum";
+                    lastActionMessage = "Success - The wheel's pressure is maximum\n";
                }
           }
 
@@ -203,7 +211,7 @@ namespace Ex03.ConsoleUI
                }
                string NewStatus = Console.ReadLine();
                m_GarageLogic.ChangeStatus(LicenseNumber, (Vehicle.eVehicleStatus)Enum.Parse(typeof(Vehicle.eVehicleStatus), NewStatus));
-               lastActionMessage = "The vehicle has succesfully changed his status";
+               lastActionMessage = "The vehicle has succesfully changed his status\n";
           }
 
           private void getListLicencedVehiclesToConsole()
@@ -263,7 +271,8 @@ namespace Ex03.ConsoleUI
                Console.WriteLine("Hello! Please enter the license number, followed by an ENTER.");
                string LicenseNumber = Console.ReadLine();
                checkValidLicenseNumberInput(LicenseNumber);
-               //TODO: check if there isn't already a vehicle withthe same LicenseNumber     
+               m_GarageLogic.CheckIfVehicleNotExists(LicenseNumber);
+               //TODO: check if there isn't already a vehicle with the same LicenseNumber     
 
                Console.WriteLine("Hello! Please enter the owner name, followed by an ENTER.");
                string OwnerName = Console.ReadLine();
@@ -289,20 +298,41 @@ namespace Ex03.ConsoleUI
                string energyPrecentage = Console.ReadLine();
                checkValidEnergyPrecentageeInput(energyPrecentage);
                m_GarageLogic.AddPrecentage(newVehicle, float.Parse(energyPrecentage));
-              
 
-               Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
-               string WheelManufacturerName = Console.ReadLine();
-               Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
-               Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
-               string CurrentAirPressure = Console.ReadLine();
-               checkValidCurrentAirPressureInput(CurrentAirPressure);
-               m_GarageLogic.AddWheels(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure));
+
+               //TODO: duplicating code
+               Console.WriteLine("Hello! Welcome to the wheels section\nif you want to enter the same information for all wheels please press 1, otherwise press any other key.");
+               if(Console.ReadLine() == "1")
+               {
+                    Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
+                    string WheelManufacturerName = Console.ReadLine();
+                    Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
+                    Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
+                    string CurrentAirPressure = Console.ReadLine();
+                    checkValidCurrentAirPressureInput(CurrentAirPressure);
+                    m_GarageLogic.AddWheels(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure));
+               }
+               else
+               {
+                    int wheelIndex = 0;
+                    foreach(Wheel wheel in newVehicle.Wheels)
+                    {
+                         Console.WriteLine("Here you will enter information for wheel number {0}:", wheelIndex + 1);
+                         Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
+                         string WheelManufacturerName = Console.ReadLine();
+                         Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
+                         Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
+                         string CurrentAirPressure = Console.ReadLine();
+                         checkValidCurrentAirPressureInput(CurrentAirPressure);
+                         m_GarageLogic.AddSingleWheel(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure), wheelIndex);
+                         wheelIndex++;
+                    }
+               }
 
                //i try so hard
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
-               lastActionMessage = "The vehicle has been succesfully added to the data base";
+               lastActionMessage = "The vehicle has been succesfully added to the data base\n";
 
             //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
         }

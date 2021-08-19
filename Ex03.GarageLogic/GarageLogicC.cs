@@ -69,6 +69,15 @@ namespace Ex03.GarageLogic
                }
           }
 
+          //TODO: new func - check exception!
+          public void CheckIfVehicleNotExists(string i_input)
+          {
+               if(r_VehiclesInGarage.ContainsKey(i_input) == true)
+               {
+                    throw new System.ArgumentException();
+               }
+          }
+
           public void AddWheels(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure)
           {
                foreach(Wheel wheel in i_Vehicle.Wheels)
@@ -76,6 +85,12 @@ namespace Ex03.GarageLogic
                     wheel.CurrentAirPressure = i_CurrentAirPressure;
                     wheel.ManufacturerName = i_ManufacturerName;
                }
+          }
+
+          public void AddSingleWheel(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure, int i_index)
+          {
+               i_Vehicle.Wheels[i_index].CurrentAirPressure = i_CurrentAirPressure;
+               i_Vehicle.Wheels[i_index].ManufacturerName = i_ManufacturerName;
           }
 
           public float GetAmountOfEnergy(string i_ID)
