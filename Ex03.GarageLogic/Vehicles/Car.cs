@@ -13,7 +13,17 @@ namespace Ex03.GarageLogic
           public eCarColor Color
           {
                get => m_Color;
-               set => m_Color = value;
+               set
+               {
+                    if(value <= eCarColor.Black && value >= eCarColor.Red)
+                    {
+                         m_Color = value;
+                    }
+                    else
+                    {
+                         throw new ValueOutOfRangeException();
+                    }
+               }
           }
 
           public eNumberOfDoors NumberOfDoors

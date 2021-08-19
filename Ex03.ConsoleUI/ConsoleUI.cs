@@ -42,7 +42,6 @@ namespace Ex03.ConsoleUI
                               Console.WriteLine(lastActionMessage);
                          }
 
-                    GarageLogic.GarageLogicC.eGarageOperations currentOperation;
                          printMainMenu();
                          string currentUserInput = Console.ReadLine();
                          contBrowsingMenu = getInputForAction(getCurrentOperation(currentUserInput));
@@ -139,7 +138,6 @@ namespace Ex03.ConsoleUI
                }
                sb.Append("\n");
                lastActionMessage = sb.ToString();
-               //TODO: better model: "Model: {0}| Owners: {1}| Vehicle state in garage: {2}| TODO wheels...{3}| TODO engine print{4}", Model, Owners,Status, "TODO: Print Wheels", "TODO: Print Engine";
           }
 
           private void FillElectricMotorInput()
@@ -253,7 +251,6 @@ namespace Ex03.ConsoleUI
 
           private void insertNewVehicleUserConsoleInput()
           {
-               //  m_GarageLogic.getAvailableVehicles(); //TODO-Hard: this function, which returns a string of available vehicles, can also create on UI
                Console.WriteLine("Hello! Please choose a vehicle to add to the garage by the matching numbers, followed by an ENTER.");
                int i = 0;
                foreach (Vehicle.eVehicleType Type in Enum.GetValues(typeof(Vehicle.eVehicleType)))
@@ -319,12 +316,14 @@ namespace Ex03.ConsoleUI
                     foreach(Wheel wheel in newVehicle.Wheels)
                     {
                          Console.WriteLine("Here you will enter information for wheel number {0}:", wheelIndex + 1);
+                         //TODO - create new func
                          Console.WriteLine("Hello! Please enter the Wheel manufacturer name, followed by an ENTER.");
                          string WheelManufacturerName = Console.ReadLine();
                          Console.WriteLine("Hello! The Wheel's maximum air pressure is: {0}", m_GarageLogic.GetMaxAirPressure(newVehicle));
                          Console.WriteLine("Hello! Please enter the Wheels current air pressure, followed by an ENTER.");
                          string CurrentAirPressure = Console.ReadLine();
                          checkValidCurrentAirPressureInput(CurrentAirPressure);
+                         //TODO - until here
                          m_GarageLogic.AddSingleWheel(newVehicle, WheelManufacturerName, float.Parse(CurrentAirPressure), wheelIndex);
                          wheelIndex++;
                     }
@@ -336,8 +335,6 @@ namespace Ex03.ConsoleUI
                //in the end it doesn't ever matter
                m_GarageLogic.AddVehicle(newVehicle, LicenseNumber);
                lastActionMessage = "The vehicle has been succesfully added to the data base\n";
-
-            //TODO: add specialCondition method(Car-Doors, Motorcycle-License type) - DAN
         }
 
           private void specialConditions(Vehicle i_NewVehicle)
@@ -459,7 +456,6 @@ namespace Ex03.ConsoleUI
           private GarageLogic.GarageLogicC.eGarageOperations getCurrentOperation(string i_CurrentUserInput)
           {
                int userChoice;
-               GarageLogic.GarageLogicC.eGarageOperations currentOperation;
                userChoice = int.Parse(i_CurrentUserInput);
                //TODO: check valid input (1-8) throws FormatERxceptions
                return (GarageLogic.GarageLogicC.eGarageOperations)userChoice;

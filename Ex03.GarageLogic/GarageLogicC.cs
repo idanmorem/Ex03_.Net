@@ -70,7 +70,6 @@ namespace Ex03.GarageLogic
                }
           }
 
-          //TODO: new func - check exception!
           public void CheckIfVehicleNotExists(string i_input)
           {
                if(r_VehiclesInGarage.ContainsKey(i_input) == true)
@@ -250,53 +249,7 @@ namespace Ex03.GarageLogic
 
                }
 
-               public override string ToString()
-               {
-                    return "License Number:" + LicenseNumber +  "Model: " + Model + "\nOwners: " + Owners + "\nState: " + Status + "\nWheels manufecturer : " + "TODO" +
-                           "\nEngine: " + "TODO";
-
-               }
-
           }
-
-          //
-          // public class WheelsDTO
-          // {
-          //      public float AirPreasure
-          //      {
-          //           get => m_AirPreasure;
-          //           set => m_AirPreasure = value;
-          //      }
-          //
-          //      public string Manufacturer
-          //      {
-          //           get => m_Manufacturer;
-          //           set => m_Manufacturer = value;
-          //      }
-          //
-          //      private float m_AirPreasure;
-          //      private string m_Manufacturer;
-          // }
-          //
-          // public struct EngineDTO
-          // {
-          //      public FuelEngine.eFuelType FuelType
-          //      {
-          //           get => fuelType;
-          //           set => fuelType = value;
-          //      }
-          //
-          //      public float BatteryState
-          //      {
-          //           get => batteryState;
-          //           set => batteryState = value;
-          //      }
-          //
-          //      private FuelEngine.eFuelType fuelType;
-          //      private float batteryState;
-          // }
-
-          //TODO: add UniqueDTO
 
           public void setValueForUniqueProperty(PropertyInfo i_UniquePropertyInfo, Vehicle i_NewVehicle, string i_NewPropertyValue)
           {
