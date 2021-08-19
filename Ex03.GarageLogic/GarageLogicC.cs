@@ -9,7 +9,11 @@ namespace Ex03.GarageLogic
           private readonly Dictionary<string, Vehicle> r_VehiclesInGarage;
           private readonly VehicleFactory r_Factory;
 
-          public GarageLogicC()
+          public const int k_NumberOfAvailableMethodsInGarage = 8;
+          public const string k_ParsingToIntError = "Error! You've been asked to enter a whole number(here's a clue - you haven't).";
+
+
+        public GarageLogicC()
           {
                r_VehiclesInGarage = new Dictionary<string, Vehicle>();
                r_Factory = new VehicleFactory();
@@ -72,6 +76,12 @@ namespace Ex03.GarageLogic
 
           public void CheckIfVehicleNotExists(string i_input)
           {
+               int parsedInt;
+
+               if (int.TryParse(i_input, out parsedInt) != true)
+               {
+                    throw new FormatException(k_ParsingToIntError);
+               }
                if (r_VehiclesInGarage.ContainsKey(i_input) == true)
                {
                     throw new System.ArgumentException();

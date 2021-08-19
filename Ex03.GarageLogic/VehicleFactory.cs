@@ -21,17 +21,13 @@
                          wheel.MaxAirPressure = 30f;
                     }
                }
-               else if (i_Type == Vehicle.eVehicleType.Truck)
+               else // (i_Type == Vehicle.eVehicleType.Truck)
                {
                     newVehicle = new Truck();
                     foreach (Wheel wheel in newVehicle.Wheels)
                     {
                          wheel.MaxAirPressure = 26f;
                     }
-               }
-               else
-               {
-                    throw new System.FormatException();
                }
                return newVehicle;
           }
