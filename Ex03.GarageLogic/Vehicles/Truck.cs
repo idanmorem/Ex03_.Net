@@ -51,41 +51,63 @@ namespace Ex03.GarageLogic
                return specificType;
           }
           public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
-          {
-               object parsedValue = null;
-               string strValue = valueToBeParsed as string;
-               //Wheel wheel in i_Vehicle.Wheels
-               if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
-               {
+        {
+            object parsedValue = null;
+            string strValue = null;
+            //Wheel wheel in i_Vehicle.Wheels
+            if (valueToBeParsed != null)
+            {
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
+                {
+                    strValue = valueToBeParsed as string;
                     //TODO: check valid input
                     if (strValue == "1") //TODO: replace with const
                     {
-                         parsedValue = true;
+                        parsedValue = true;
                     }
                     else if (strValue == "2") //TODO: replace with const
                     {
-                         parsedValue = false;
+                        parsedValue = false;
                     }
                     else
                     {
-                         throw new ArgumentException("You can only enter 1 for true OR 2 for false");
+                        throw new ArgumentException("You can only enter 1 for true OR 2 for false");
                     }
 
-               }
-               else //it's MaxLoad
-               {
+                }
+                else //it's MaxLoad
+                {
                     float tmpFloatHolder; //can't cast at tryParse
                     if (float.TryParse(strValue, out tmpFloatHolder))
                     {
-                         parsedValue = tmpFloatHolder;
+                        parsedValue = tmpFloatHolder;
                     }
                     else
                     {
-                         throw new ArgumentException("You've got to enter a float");
+                        throw new ArgumentException("You've got to enter a float");
                     }
-               }
+                }
+            }
+            else
+            {
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
+                {
+                    //TODO: check valid input
+                    parsedValue = IsContainingDangerousMaterials.ToString();
+                }
+                else //it's type maxLoad
+                {
+                    parsedValue = MaxLoad.ToString();
+                }
+            }
 
-               return parsedValue;
-          }
+            return parsedValue;
+        }
+
+        public override Vehicle DeepClone()
+        {
+            Truck newTruckClone = base.DeepClone() as Truck;
+            return newTruckClone;
+        }
      }
 }
