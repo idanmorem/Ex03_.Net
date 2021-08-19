@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Ex03.ConsoleUI
                          Console.Clear();
                          if (lastActionMessage != null)
                          {
-                              Console.WriteLine(lastActionMessage);
+                              Console.WriteLine("Last action recap: " + Environment.NewLine + lastActionMessage);
                          }
 
                          printMainMenu();
@@ -46,12 +47,18 @@ namespace Ex03.ConsoleUI
                     }
                     catch (KeyNotFoundException e)
                     {
-                         lastActionMessage = "ERROR: The entered license plate does not exist in our garage!\n";
+                         lastActionMessage = "Error! The entered license plate does not exist in our garage!";
+                    }
+                    catch (ValueOutOfRangeException e)
+                    {
+                         lastActionMessage = "Error! you've got to enter a value between " + e.MinValue + " to " +
+                              e.MaxValue;
                     }
                     catch (Exception e)
                     {
                          lastActionMessage = e.Message;
                     }
+                    lastActionMessage += Environment.NewLine;
                }
                Console.WriteLine("You've chosen to quit, goodbye!~");
           }
@@ -458,27 +465,45 @@ namespace Ex03.ConsoleUI
 
           private GarageLogic.GarageLogicC.eGarageOperations getCurrentOperation(string i_CurrentUserInput)
           {
-               int userChoice;
-               userChoice = int.Parse(i_CurrentUserInput);
-               //TODO: check valid input (1-8) throws FormatERxceptions
-               return (GarageLogic.GarageLogicC.eGarageOperations)userChoice;
+               int parsedUserChoice;
+               if (int.TryParse(i_CurrentUserInput, out parsedUserChoice) == false)
+               {
+
+                    throw new FormatException(k_ParsingToIntError);
+               }
+               else 
+               {
+                    if ((parsedUserChoice > k_NumberOfAvailableMethodsInGarage || parsedUserChoice <= 0) == true)
+                    {
+                         ValueOutOfRangeException thrownException = new ValueOutOfRangeException();
+                         thrownException.MaxValue = k_NumberOfAvailableMethodsInGarage;
+                         thrownException.MinValue = 1;
+                         throw thrownException;
+                    }
+               }
+               return (GarageLogic.GarageLogicC.eGarageOperations)parsedUserChoice;
           }
 
+          private const int k_NumberOfAvailableMethodsInGarage = 8;
+          private const string k_ParsingToIntError = "Error! You've been asked to enter a whole number, whislt you haven't";
           private void printMainMenu()
           {
                Console.WriteLine("Welcome to our garage!\n");
-               const string k_InsertNewCar = "Press 1 to ENTER A NEW VEHICLE into the garage";
-               const string k_ExhibitLicencedPlates = "Press 2 to LIST ALL VEHICLES that are licenced in our garage.";
-               const string k_ChangeState = "Press 3 to CHANGE a vehicles PROGRESS STATE.";
-               const string k_AddTirePressure = "Press 4 to FILL TIRE PRESSURE TO MAXIMUM.";
-               const string k_FillGas = "Press 5 to FILL GAS to a gasoline-based engine vehicle.";
-               const string k_ChargeElectric = "Press 6 to CHARGE an ELECTRIC-based engine vehicle";
-               const string k_ExhibitSingle = "Press 7 to EXHIBIT a VEHICLE.";
+               const string k_Selectable = "Selectable actions menu: ";
+            const string k_InsertNewCar = "Press 1 to insert a new vehicle into the garage";
+               const string k_ExhibitLicencedPlates = "Press 2 to get a filtered by state list of the licensed vehicles within our garage.";
+               const string k_ChangeState = "Press 3 to change the state of the the vehicle in the garage.";
+               const string k_AddTirePressure = "Press 4 to fill a selected vehicle tires.";
+               const string k_FillGas = "Press 5 to fill gas to a gasoline-based engine vehicle.";
+               const string k_ChargeElectric = "Press 6 to charge an electric-based engine vehicle";
+               const string k_ExhibitSingle = "Press 7 to get an extended observation on a vehicle.";
                const string K_Quit = "Press 8 to end our services.";
+               const string K_EnteredChoice = "Please enter your choice now:";
 
-               Console.WriteLine("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n", k_InsertNewCar, k_ExhibitLicencedPlates, k_ChangeState, k_AddTirePressure, k_FillGas, k_ChargeElectric, k_ExhibitSingle, K_Quit);
+               Console.WriteLine("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n\n{9}", k_Selectable, k_InsertNewCar, k_ExhibitLicencedPlates, k_ChangeState, k_AddTirePressure, k_FillGas, k_ChargeElectric, k_ExhibitSingle, K_Quit, K_EnteredChoice);
           }
 
+         
           private void createTestVehicles()
           {
                Vehicle firstCar = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Car);
