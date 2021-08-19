@@ -53,22 +53,43 @@ namespace Ex03.GarageLogic
           }
 
           public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
-          {
-               object parsedValue = null;
-               string strValue = valueToBeParsed as string;
-               //Wheel wheel in i_Vehicle.Wheels
-               if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
-               {
+        {
+            object parsedValue = null;
+            string strValue = null;
+            if (valueToBeParsed != null)
+            {
+                //Wheel wheel in i_Vehicle.Wheels
+                strValue = valueToBeParsed as string;
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
+                {
                     //TODO: check valid input
                     parsedValue = int.Parse(strValue);
-               }
-               else //it's the license type
-               {
+                }
+                else //it's the license type
+                {
                     parsedValue = Enum.Parse(typeof(eLicenseType), strValue);
-               }
+                }
+            }
+            else
+            {
+                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
+                {
+                    //TODO: check valid input
+                    parsedValue = EngineSize.ToString();
+                }
+                else //it's type license type
+                {
+                    parsedValue = LicenseType.ToString();
+                }
+            }
+            return parsedValue;
+        }
 
-               return parsedValue;
-          }
+        public override Vehicle DeepClone()
+        {
+            Motorcycle newBikeClone = base.DeepClone() as Motorcycle;
+            return newBikeClone;
+        }
           public enum eLicenseType
           {
                A,
