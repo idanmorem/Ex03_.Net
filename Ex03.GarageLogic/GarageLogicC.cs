@@ -165,12 +165,12 @@ namespace Ex03.GarageLogic
                return currentVehicle.Status;
           }
 
-          public VehicleDTOBundle GetVehicleBundle(string i_VehicleLicensePlate)
-          {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
-               return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
-          }
+          //public VehicleDTOBundle GetVehicleBundle(string i_VehicleLicensePlate)
+          //{
+               //Vehicle currentVehicle;
+               //r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
+               //return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
+          //}
 
           public void FillWheelsAirPressure(string i_LicenseNumber)
           {
@@ -182,74 +182,74 @@ namespace Ex03.GarageLogic
                }
           }
 
-          public class VehicleDTOBundle
-          {
-               private string m_LicenseNumber;
+//           public class VehicleDTOBundle
+//           {
+//                private string m_LicenseNumber;
 
-               public string LicenseNumber
-               {
-                    get => m_LicenseNumber;
-                    set => m_LicenseNumber = value;
-               }
+//                public string LicenseNumber
+//                {
+//                     get => m_LicenseNumber;
+//                     set => m_LicenseNumber = value;
+//                }
 
-               public Wheel[] Wheels
-               {
-                    get => m_Wheels;
-                    set => m_Wheels = value;
-               }
+//                public Wheel[] Wheels
+//                {
+//                     get => m_Wheels;
+//                     set => m_Wheels = value;
+//                }
 
-               public Engine Engine
-               {
-                    get => engine;
-                    set => engine = value;
-               }
+//                public Engine Engine
+//                {
+//                     get => engine;
+//                     set => engine = value;
+//                }
 
-               public VehicleDTOBundle()
-               {
+//                public VehicleDTOBundle()
+//                {
 
-               }
+//                }
 
-               private string m_Owners;
+//                private string m_Owners;
 
-               public string Owners
-               {
-                    get => m_Owners;
-                    set => m_Owners = value;
-               }
+//                public string Owners
+//                {
+//                     get => m_Owners;
+//                     set => m_Owners = value;
+//                }
 
-               private Vehicle.eVehicleStatus m_Status;
-               public Vehicle.eVehicleStatus Status
-               {
-                    get => m_Status;
-                    set => m_Status = value;
-               }
+//                private Vehicle.eVehicleStatus m_Status;
+//                public Vehicle.eVehicleStatus Status
+//                {
+//                     get => m_Status;
+//                     set => m_Status = value;
+//                }
 
-               private Wheel[] m_Wheels;
+//                private Wheel[] m_Wheels;
 
-               private Engine engine;
+//                private Engine engine;
 
-               private string m_Model;
-               public string Model
-               {
-                    get { return m_Model; }
-                    set { m_Model = value; }
-               }
+//                private string m_Model;
+//                public string Model
+//                {
+//                     get { return m_Model; }
+//                     set { m_Model = value; }
+//                }
 
 
-               public VehicleDTOBundle(Vehicle i_Vehicle, string i_ID)
-               {
-                    //TODO: deep clone to move data safely
+//                public VehicleDTOBundle(Vehicle i_Vehicle, string i_ID)
+//                {
+//                     //TODO: deep clone to move data safely
 
-                    this.LicenseNumber = i_ID;
-                    this.Model = i_Vehicle.ModelName;
-                    this.Owners = i_Vehicle.OwnersName;
-                    this.Status = i_Vehicle.Status;
-                    this.Wheels = i_Vehicle.Wheels;
-                    this.Engine = i_Vehicle.CurrentEngine;
+//                     this.LicenseNumber = i_ID;
+//                     this.Model = i_Vehicle.ModelName;
+//                     this.Owners = i_Vehicle.OwnersName;
+//                     this.Status = i_Vehicle.Status;
+//                     this.Wheels = i_Vehicle.Wheels;
+//                     this.Engine = i_Vehicle.CurrentEngine;
 
-               }
+//                }
 
-          }
+//           }
 
           public void setValueForUniqueProperty(PropertyInfo i_UniquePropertyInfo, Vehicle i_NewVehicle, string i_NewPropertyValue)
           {
@@ -273,5 +273,31 @@ namespace Ex03.GarageLogic
 
                return uniqueProperties;
           }
+          
+           public List<PropertyInfo> GetVehiclesUniqueProperties(string i_LicenseNumber)
+        {
+             GarageLogic.Vehicle copiedVehicle;
+             if (r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out copiedVehicle) == false)
+             {
+                  throw new KeyNotFoundException();
+             }
+             return GetVehiclesUniqueProperties(r_VehiclesInGarage[i_LicenseNumber]);
+        }
+
+        public Vehicle getVehicleCopy(string i_ReadLine)
+          {
+               GarageLogic.Vehicle copiedVehicle;
+               if (r_VehiclesInGarage.TryGetValue(i_ReadLine, out copiedVehicle) == false)
+               {
+                throw new KeyNotFoundException(); 
+               }
+               return copiedVehicle.DeepClone();
+          }
+
+
+        public string getStringPropertyValue(Vehicle i_ClonedVehicle, PropertyInfo i_VehiclesUniqueProperty)
+        {
+             return i_ClonedVehicle.AutonomicParser(i_VehiclesUniqueProperty, null) as string;
+        }
      }
 }
