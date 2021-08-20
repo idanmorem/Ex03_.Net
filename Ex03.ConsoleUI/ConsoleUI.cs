@@ -25,8 +25,6 @@ namespace Ex03.ConsoleUI
 
           public void GarageMenu()
           {
-
-               createTestVehicles(); //for tests ONLY
                bool contBrowsingMenu = true;
                while (contBrowsingMenu)
                {
@@ -518,63 +516,6 @@ namespace Ex03.ConsoleUI
                const string k_EnteredChoice = "Please enter your choice now:";
 
                Console.WriteLine("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n\n{9}", k_Selectable, k_InsertNewCar, k_ExhibitLicensedPlates, k_ChangeState, k_AddTirePressure, k_FillGas, k_ChargeElectric, k_ExhibitSingle, k_Quit, k_EnteredChoice);
-          }
-
-          private void createTestVehicles()
-          {
-               Vehicle firstCar = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Car);
-               firstCar.ModelName = "Ferari x-325";
-               firstCar.OwnersName = "Tikva";
-               firstCar.OwnersPhoneNumber = "1111111111";
-               m_GarageLogic.AddEngine(firstCar, Engine.eEngineType.Fuel);
-               firstCar.CurrentEngine.EnergyPercent = 50;
-               firstCar.CurrentEngine.CalcCurrentEnergy();
-               foreach (var wheel in firstCar.Wheels)
-               {
-                    wheel.CurrentAirPressure = 10;
-                    wheel.ManufacturerName = "2KOOL4SKOOL";
-               }
-
-               Vehicle secondCar = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Car);
-               secondCar.ModelName = "Mitsubishi-Attrage";
-               secondCar.OwnersName = "Menash";
-               secondCar.OwnersPhoneNumber = "2222222222";
-               m_GarageLogic.AddEngine(secondCar, Engine.eEngineType.Electric);
-               secondCar.CurrentEngine.EnergyPercent = 20;
-               secondCar.CurrentEngine.CalcCurrentEnergy();
-               foreach (var wheel in secondCar.Wheels)
-               {
-                    wheel.CurrentAirPressure = 15;
-                    wheel.ManufacturerName = "2KOOL5SKOOL";
-               }
-
-               Vehicle firstMotorCycle = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Motorcycle);
-               firstMotorCycle.ModelName = "Honda-NemesisXG";
-               firstMotorCycle.OwnersName = "Nahum";
-               firstMotorCycle.OwnersPhoneNumber = "3333333333";
-               m_GarageLogic.AddEngine(firstMotorCycle, Engine.eEngineType.Fuel);
-               foreach (var wheel in firstMotorCycle.Wheels)
-               {
-                    wheel.CurrentAirPressure = 20;
-                    wheel.ManufacturerName = "2KOOL6SKOOL";
-               }
-
-               Vehicle firstTruck = m_GarageLogic.CreateVehicle(Vehicle.eVehicleType.Truck);
-               firstTruck.ModelName = "BigMoma";
-               firstTruck.OwnersName = "AlsoABigMoma";
-               firstTruck.OwnersPhoneNumber = "1234";
-               m_GarageLogic.AddEngine(firstTruck, Engine.eEngineType.Fuel);
-               secondCar.CurrentEngine.EnergyPercent = 40;
-               foreach (var wheel in firstTruck.Wheels)
-               {
-                    wheel.CurrentAirPressure = 25;
-                    wheel.ManufacturerName = "2KOOL7SKOOL";
-               }
-
-               m_GarageLogic.AddVehicle(firstCar, "11111");
-               m_GarageLogic.AddVehicle(secondCar, "80085");
-               m_GarageLogic.AddVehicle(firstMotorCycle, "22222");
-               m_GarageLogic.AddVehicle(firstTruck, "33333");
           }
      }
 }
