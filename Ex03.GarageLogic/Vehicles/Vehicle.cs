@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
      public abstract class Vehicle
      {
           private string m_ModelName;
-          private Wheel[] m_Wheels;
+          private readonly Wheel[] m_Wheels;
           private readonly Wheel.eNumberOfWheels r_NumberOfWheels;
           private string m_OwnersName;
           private string m_OwnersPhoneNumber;
@@ -31,10 +31,7 @@ namespace Ex03.GarageLogic
                Paid
           }
 
-          public Wheel[] Wheels
-          {
-               get => m_Wheels;
-          }
+          public Wheel[] Wheels => m_Wheels;
 
           public string ModelName
           {
@@ -42,10 +39,7 @@ namespace Ex03.GarageLogic
                set => m_ModelName = value;
           }
 
-          public Wheel.eNumberOfWheels NumberOfWheels
-          {
-               get => r_NumberOfWheels;
-          }
+          public Wheel.eNumberOfWheels NumberOfWheels => r_NumberOfWheels;
 
           public string OwnersName
           {
@@ -78,7 +72,7 @@ namespace Ex03.GarageLogic
                Truck
           }
 
-          public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pickable object
+          public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pick-able object
 
           public abstract object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed);
           

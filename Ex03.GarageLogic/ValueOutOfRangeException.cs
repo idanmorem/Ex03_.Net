@@ -6,7 +6,7 @@
           private float m_MinValue;
 
      
-        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue) : base()
+        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue) 
         {
              MaxValue = i_MaxValue;
              MinValue = i_MinValue;

@@ -18,7 +18,7 @@
 
           public override void CalcCurrentEnergy()
           {
-               m_CurrentFuelAmount = ((m_MaxFuelAmount * base.EnergyPercent) / 100);
+               m_CurrentFuelAmount = ((m_MaxFuelAmount * EnergyPercent) / 100);
           }
 
           public override float GetAmountOfEnergy()
@@ -31,16 +31,10 @@
                return MaxFuelAmount;
           }
 
-
-          public FuelEngine() { }
-
           public eFuelType FuelType
           {
                get => m_FuelType;
-               set
-               {
-                    m_FuelType = value;
-               }
+               set => m_FuelType = value;
           }
 
           public float CurrentFuelAmount
@@ -59,7 +53,7 @@
                     else
                     {
                          m_CurrentFuelAmount = value;
-                         base.EnergyPercent = CalcEnergyPercent();
+                         EnergyPercent = CalcEnergyPercent();
                     }
                }
           }
@@ -87,10 +81,10 @@
 
           public enum eFuelType
           {
-               Soler,
-               Octan95,
-               Octan96,
-               Octan98
+               Solar,
+               Octane95,
+               Octane96,
+               Octane98
           }
      }
 }

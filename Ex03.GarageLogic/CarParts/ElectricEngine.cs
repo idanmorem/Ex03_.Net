@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
 
           public override void CalcCurrentEnergy()
           {
-               m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
+               m_BatteryTimeLeft = ((m_MaxBatteryTime * EnergyPercent) / 100);
           }
 
           public override float GetAmountOfEnergy()
@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
                     else
                     {
                          m_BatteryTimeLeft = value;
-                         base.EnergyPercent = CalcEnergyPercent();
+                         EnergyPercent = CalcEnergyPercent();
                     }
                }
           }
@@ -64,7 +64,7 @@ namespace Ex03.GarageLogic
                     }
                     else if (value < m_BatteryTimeLeft)
                     {
-                         throw new System.ArgumentException();
+                         throw new ArgumentException();
                     }
                     else
                     {

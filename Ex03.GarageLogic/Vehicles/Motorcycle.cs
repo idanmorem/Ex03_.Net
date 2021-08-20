@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
 {
      public class Motorcycle : Vehicle
      {
-          private eLicenseType m_LiscenceType;
+          private eLicenseType m_LicenseType;
           private int m_EngineSize;
 
           public Motorcycle() : base(Wheel.eNumberOfWheels.TwoWheels) { }
@@ -29,8 +29,8 @@ namespace Ex03.GarageLogic
 
           public eLicenseType LicenseType
           {
-               get => m_LiscenceType;
-               set => m_LiscenceType = value;
+               get => m_LicenseType;
+               set => m_LicenseType = value;
           }
 
           public override Type getUniqueType(string i_PropertyName)
@@ -42,7 +42,7 @@ namespace Ex03.GarageLogic
                }
                else if (i_PropertyName == "LicenseType")
                {
-                    specificType = typeof(Motorcycle.eLicenseType);
+                    specificType = typeof(eLicenseType);
                }
                else
                {
@@ -52,15 +52,14 @@ namespace Ex03.GarageLogic
                return specificType;
           }
 
-          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
+          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object i_ValueToBeParsed)
         {
             object parsedValue = null;
-            string strValue = null;
-            if (valueToBeParsed != null)
+            if (i_ValueToBeParsed != null)
             {
-                //Wheel wheel in i_Vehicle.Wheels
-                strValue = valueToBeParsed as string;
-                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
+                 //Wheel wheel in i_Vehicle.Wheels
+                 var strValue = i_ValueToBeParsed as string;
+                 if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("EngineSize")))
                 {
                     //TODO: check valid input
                     parsedValue = int.Parse(strValue);

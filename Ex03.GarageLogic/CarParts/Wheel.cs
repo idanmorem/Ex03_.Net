@@ -6,10 +6,6 @@
           private float m_CurrentAirPressure;
           private float m_MaxAirPressure;
 
-          public Wheel()
-          {
-
-          }
 
           // private void AddAir(float i_AmountOfAirToAdd)
           // {
