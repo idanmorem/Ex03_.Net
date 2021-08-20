@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
           private const int k_MaxDoorsVal = 3;
           private const int k_MinDoorsVal = 0;
 
-        public Car() : base(Wheel.eNumberOfWheels.FourWheels) { }
+          public Car() : base(Wheel.eNumberOfWheels.FourWheels) { }
 
           public eCarColor Color
           {
@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
                     }
                     else
                     {
-//                         throw new ValueOutOfRangeException(k_MaxColorVal, k_MinColorVal);
+                         //                         throw new ValueOutOfRangeException(k_MaxColorVal, k_MinColorVal);
                     }
                }
           }
@@ -82,43 +82,43 @@ namespace Ex03.GarageLogic
           }
 
           public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object i_ValueToBeParsed)
-        {
+          {
 
-            object parsedValue = null;
-            if (i_ValueToBeParsed != null)
-            {
-                 string strValue = i_ValueToBeParsed as string;
-                 //Wheel wheel in i_Vehicle.Wheels
-                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
-                {
-                    //TODO: check valid input
-                    parsedValue = Enum.Parse(typeof(eCarColor), strValue);
-                }
-                else //it's the number of doors
-                {
-                    parsedValue = Enum.Parse(typeof(eNumberOfDoors), strValue);
-                }
-            }
-            else // parsedValue == null -> only return the object string that represents the properties value
-            {
-                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
-                {
-                    //TODO: check valid input
-                    parsedValue = Color.ToString();
-                }
-                else //it's the number of doors
-                {
-                    parsedValue = NumberOfDoors.ToString();
-                }
-            }
-            return parsedValue;
-        }
+               object parsedValue = null;
+               if (i_ValueToBeParsed != null)
+               {
+                    string strValue = i_ValueToBeParsed as string;
+                    //Wheel wheel in i_Vehicle.Wheels
+                    if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
+                    {
+                         //TODO: check valid input
+                         parsedValue = Enum.Parse(typeof(eCarColor), strValue);
+                    }
+                    else //it's the number of doors
+                    {
+                         parsedValue = Enum.Parse(typeof(eNumberOfDoors), strValue);
+                    }
+               }
+               else // parsedValue == null -> only return the object string that represents the properties value
+               {
+                    if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
+                    {
+                         //TODO: check valid input
+                         parsedValue = Color.ToString();
+                    }
+                    else //it's the number of doors
+                    {
+                         parsedValue = NumberOfDoors.ToString();
+                    }
+               }
+               return parsedValue;
+          }
 
 
-        public override Vehicle DeepClone()
-        {
-            Car newCarClone = base.DeepClone() as Car;
-            return newCarClone;
-        }
+          public override Vehicle DeepClone()
+          {
+               Car newCarClone = base.DeepClone() as Car;
+               return newCarClone;
+          }
      }
 }

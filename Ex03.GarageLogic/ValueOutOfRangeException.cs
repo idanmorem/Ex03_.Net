@@ -5,18 +5,18 @@
           private float m_MaxValue;
           private float m_MinValue;
 
-     
-        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue) 
-        {
-             MaxValue = i_MaxValue;
-             MinValue = i_MinValue;
-        }
 
-        public ValueOutOfRangeException()
+          public ValueOutOfRangeException(float i_MaxValue, float i_MinValue)
+          {
+               MaxValue = i_MaxValue;
+               MinValue = i_MinValue;
+          }
+
+          public ValueOutOfRangeException()
           {
           }
 
-        public float MaxValue
+          public float MaxValue
           {
                get => m_MaxValue;
                set => m_MaxValue = value;
