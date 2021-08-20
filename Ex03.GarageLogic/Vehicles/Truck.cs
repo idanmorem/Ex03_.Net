@@ -50,16 +50,16 @@ namespace Ex03.GarageLogic
 
                return specificType;
           }
-          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
+          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object i_ValueToBeParsed)
         {
             object parsedValue = null;
             string strValue = null;
             //Wheel wheel in i_Vehicle.Wheels
-            if (valueToBeParsed != null)
+            if (i_ValueToBeParsed != null)
             {
                 if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
                 {
-                    strValue = valueToBeParsed as string;
+                    strValue = i_ValueToBeParsed as string;
                     //TODO: check valid input
                     if (strValue == "1") //TODO: replace with const
                     {
@@ -77,8 +77,7 @@ namespace Ex03.GarageLogic
                 }
                 else //it's MaxLoad
                 {
-                    float tmpFloatHolder; //can't cast at tryParse
-                    if (float.TryParse(strValue, out tmpFloatHolder))
+                    if (float.TryParse(strValue, out float tmpFloatHolder))
                     {
                         parsedValue = tmpFloatHolder;
                     }

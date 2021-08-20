@@ -39,17 +39,17 @@
                     i_Vehicle.CurrentEngine = new FuelEngine();
                     if (i_Vehicle is Car)
                     {
-                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octan95;
+                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octane95;
                          (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 45f;
                     }
                     else if (i_Vehicle is Motorcycle)
                     {
-                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octan98;
+                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Octane98;
                          (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 6f;
                     }
                     else if (i_Vehicle is Truck)
                     {
-                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Soler;
+                         (i_Vehicle.CurrentEngine as FuelEngine).FuelType = FuelEngine.eFuelType.Solar;
                          (i_Vehicle.CurrentEngine as FuelEngine).MaxFuelAmount = 120f;
                     }
                }

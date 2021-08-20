@@ -6,7 +6,6 @@ namespace Ex03.GarageLogic
      {
           private float m_BatteryTimeLeft;
           private float m_MaxBatteryTime;
-
           public void Charge(float i_AmountOfTimeToAdd)
           {
                BatteryTimeLeft = m_BatteryTimeLeft + i_AmountOfTimeToAdd;
@@ -19,7 +18,7 @@ namespace Ex03.GarageLogic
 
           public override void CalcCurrentEnergy()
           {
-               m_BatteryTimeLeft = ((m_MaxBatteryTime * base.EnergyPercent) / 100);
+               m_BatteryTimeLeft = ((m_MaxBatteryTime * EnergyPercent) / 100);
           }
 
           public override float GetAmountOfEnergy()
@@ -48,11 +47,10 @@ namespace Ex03.GarageLogic
                     else
                     {
                          m_BatteryTimeLeft = value;
-                         base.EnergyPercent = CalcEnergyPercent();
+                         EnergyPercent = CalcEnergyPercent();
                     }
                }
           }
-
           public float MaxBatteryTime
           {
                get => m_MaxBatteryTime;
@@ -64,7 +62,7 @@ namespace Ex03.GarageLogic
                     }
                     else if (value < m_BatteryTimeLeft)
                     {
-                         throw new System.ArgumentException();
+                         throw new ArgumentException();
                     }
                     else
                     {

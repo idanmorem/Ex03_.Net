@@ -8,16 +8,12 @@ namespace Ex03.GarageLogic
      {
           private readonly Dictionary<string, Vehicle> r_VehiclesInGarage;
           private readonly VehicleFactory r_Factory;
-
           public const int k_NumberOfAvailableMethodsInGarage = 8;
           public const string k_ParsingToIntError = "Error! You've been asked to enter a whole number(here's a clue - you haven't).";
-          public const float k_MaxPrecentage = 100;
-          public const float k_MinPrecentage = 0;
+          public const float k_MaxPercentage = 100;
+          public const float k_MinPercentage = 0;
           public const int k_MaxNumberOfStatuses = 2;
           public const int k_MinNumberOfStatuses = 0;
-          private const int k_MaxVehicleValue = 2;
-          private const int k_MinVehicleValue = 0;
-
           public GarageLogicC()
           {
                r_VehiclesInGarage = new Dictionary<string, Vehicle>();
@@ -27,7 +23,7 @@ namespace Ex03.GarageLogic
           public enum eGarageOperations
           {
                InsertNewVehicle = 1,
-               ListLicencedVehicles,
+               ListLicensedVehicles,
                ChangeVehicleState,
                AddTirePressure,
                FillGasMotor,
@@ -35,7 +31,6 @@ namespace Ex03.GarageLogic
                ExhibitSpecificCar,
                QuitApp
           }
-
           public void AddVehicle(Vehicle i_Vehicle, string i_LicenseNumber)
           {
                r_VehiclesInGarage.Add(i_LicenseNumber, i_Vehicle);
@@ -50,27 +45,22 @@ namespace Ex03.GarageLogic
           {
                r_Factory.AddEngine(i_Vehicle, i_Type);
           }
-
-          public void AddPrecentage(Vehicle i_Vehicle, float i_Input)
+          public void AddPercentage(Vehicle i_Vehicle, float i_Input)
           {
                i_Vehicle.CurrentEngine.EnergyPercent = i_Input;
                i_Vehicle.CurrentEngine.CalcCurrentEnergy();
           }
-
-          //func no. 1
+        
           public Vehicle CreateVehicle(Vehicle.eVehicleType i_Type)
           {
                return r_Factory.CreateVehicle(i_Type);
           }
 
-          //func no. 5
           public void AddFuel(string i_Id, FuelEngine.eFuelType i_FuelType, float i_AmountToFill)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_Id, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_Id, out Vehicle currentVehicle);
                ((FuelEngine)currentVehicle.CurrentEngine).AddFuel(i_AmountToFill, i_FuelType);
           }
-
           public void CheckIfVehicleExists(string i_Input)
           {
                if (r_VehiclesInGarage.ContainsKey(i_Input) == false)
@@ -110,22 +100,19 @@ namespace Ex03.GarageLogic
 
           public float GetAmountOfEnergy(string i_LicensePlate)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out Vehicle currentVehicle);
                return currentVehicle.CurrentEngine.GetAmountOfEnergy();
           }
 
-          public float GetMaxAmoutOfEnergy(string i_LicensePlate)
+          public float GetMaxAmountOfEnergy(string i_LicensePlate)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out Vehicle currentVehicle);
                return currentVehicle.CurrentEngine.GetMaxAmountOfEnergy();
           }
 
           public void CheckIfEngineIsFuel(string i_Input)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_Input, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_Input, out Vehicle currentVehicle);
                if (!(currentVehicle.CurrentEngine is FuelEngine))
                {
                     throw new ArgumentException();
@@ -134,8 +121,7 @@ namespace Ex03.GarageLogic
 
           public void CheckIfFuelTypeIsCorrect(FuelEngine.eFuelType i_Input, string i_LicensePlate)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out Vehicle currentVehicle);
                if (i_Input != (currentVehicle.CurrentEngine as FuelEngine).FuelType)
                {
                     throw new ArgumentException();
@@ -144,29 +130,25 @@ namespace Ex03.GarageLogic
 
           public void CheckIfEngineIsElectric(string i_Input)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_Input, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_Input, out Vehicle currentVehicle);
                if (!(currentVehicle.CurrentEngine is ElectricEngine))
                {
                     throw new FormatException();
                }
           }
 
-          //func no. 6
           public void Charge(string i_LicensePlate, float i_AmountToFill)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_LicensePlate, out Vehicle currentVehicle);
                ((ElectricEngine)currentVehicle.CurrentEngine).Charge(i_AmountToFill);
           }
 
-          //assumes the license plate nubmer is valid already
+          //assumes the license plate number is valid already
           public void ChangeStatus(string i_VehicleLicensePlate, Vehicle.eVehicleStatus i_NewStatus)
           {
                Vehicle currentVehicle = r_VehiclesInGarage[i_VehicleLicensePlate];
                currentVehicle.Status = i_NewStatus;
           }
-
 
           public Dictionary<string, Vehicle>.KeyCollection GetPlateList()
           {
@@ -175,17 +157,9 @@ namespace Ex03.GarageLogic
 
           public Vehicle.eVehicleStatus GetVehicleState(string i_VehicleLicensePlate)
           {
-               Vehicle currentVehicle;
-               r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
+               r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out Vehicle currentVehicle);
                return currentVehicle.Status;
           }
-
-          //public VehicleDTOBundle GetVehicleBundle(string i_VehicleLicensePlate)
-          //{
-               //Vehicle currentVehicle;
-               //r_VehiclesInGarage.TryGetValue(i_VehicleLicensePlate, out currentVehicle);
-               //return new VehicleDTOBundle(currentVehicle, i_VehicleLicensePlate);
-          //}
 
           public void FillWheelsAirPressure(string i_LicenseNumber)
           {
@@ -210,7 +184,7 @@ namespace Ex03.GarageLogic
                {
                     string checkedPropertyName = currentCheckedProperty.Name;
 
-                    if (typeof(Vehicle).GetProperty(checkedPropertyName) == null) //if vehicle doesn't have this propery, it's unique.
+                    if (typeof(Vehicle).GetProperty(checkedPropertyName) == null) //if vehicle doesn't have this property, it's unique.
                     {
                          uniqueProperties.Add(currentCheckedProperty);
                     }
@@ -237,7 +211,6 @@ namespace Ex03.GarageLogic
                }
                return copiedVehicle.DeepClone();
           }
-
 
         public string GetStringPropertyValue(Vehicle i_ClonedVehicle, PropertyInfo i_VehiclesUniqueProperty)
         {

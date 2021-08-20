@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Ex03.GarageLogic
 {
@@ -8,8 +7,12 @@ namespace Ex03.GarageLogic
      {
           private eCarColor m_Color;
           private eNumberOfDoors m_NumberOfDoors = eNumberOfDoors.FourDoors;
+          private const int k_MaxColorVal = 3;
+          private const int k_MinColorVal = 0;
+          private const int k_MaxDoorsVal = 3;
+          private const int k_MinDoorsVal = 0;
 
-          public Car() : base(Wheel.eNumberOfWheels.FourWheels) { }
+        public Car() : base(Wheel.eNumberOfWheels.FourWheels) { }
 
           public eCarColor Color
           {
@@ -22,16 +25,11 @@ namespace Ex03.GarageLogic
                     }
                     else
                     {
-                         throw new Exception("LOOOOOOOOOOOOL");
 //                         throw new ValueOutOfRangeException(k_MaxColorVal, k_MinColorVal);
                     }
                }
           }
 
-          private const int k_MaxColorVal = 3;
-          private const int k_MinColorVal = 0;
-          private const int k_MaxDoorsVal = 3;
-          private const int k_MinDoorsVal = 0;
           public eNumberOfDoors NumberOfDoors
           {
                get => m_NumberOfDoors;
@@ -69,11 +67,11 @@ namespace Ex03.GarageLogic
                Type specificType;
                if (i_PropertyName == "Color")
                {
-                    specificType = typeof(Car.eCarColor);
+                    specificType = typeof(eCarColor);
                }
                else if (i_PropertyName == "NumberOfDoors")
                {
-                    specificType = typeof(Car.eNumberOfDoors);
+                    specificType = typeof(eNumberOfDoors);
                }
                else
                {
@@ -83,16 +81,14 @@ namespace Ex03.GarageLogic
                return specificType;
           }
 
-          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed)
+          public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object i_ValueToBeParsed)
         {
 
             object parsedValue = null;
-            string strValue = null;
-            if (valueToBeParsed != null)
+            if (i_ValueToBeParsed != null)
             {
-
-                strValue = valueToBeParsed as string;
-                //Wheel wheel in i_Vehicle.Wheels
+                 string strValue = i_ValueToBeParsed as string;
+                 //Wheel wheel in i_Vehicle.Wheels
                 if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("Color")))
                 {
                     //TODO: check valid input
