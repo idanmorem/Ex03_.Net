@@ -146,7 +146,7 @@ namespace Ex03.ConsoleUI
                }
                foreach (PropertyInfo vehiclesUniqueProperty in m_GarageLogic.GetVehiclesUniqueProperties(licensePlateNumber))
                {
-                    sb.Append("\n " + vehiclesUniqueProperty.Name + ": " + m_GarageLogic.GetStringPropertyValue(clonedVehicle, vehiclesUniqueProperty)); //TODO: get the generically
+                    sb.Append("\n" + vehiclesUniqueProperty.Name + ": " + m_GarageLogic.GetStringPropertyValue(clonedVehicle, vehiclesUniqueProperty)); //TODO: get the generically
                }
                sb.Append("\n");
                m_LastActionMessage = sb.ToString();

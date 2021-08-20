@@ -51,62 +51,62 @@ namespace Ex03.GarageLogic
                return specificType;
           }
           public override object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object i_ValueToBeParsed)
-        {
-            object parsedValue = null;
-            string strValue = null;
-            //Wheel wheel in i_Vehicle.Wheels
-            if (i_ValueToBeParsed != null)
-            {
-                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
-                {
-                    strValue = i_ValueToBeParsed as string;
-                    //TODO: check valid input
-                    if (strValue == "1") //TODO: replace with const
+          {
+               object parsedValue = null;
+               string strValue = null;
+               //Wheel wheel in i_Vehicle.Wheels
+               if (i_ValueToBeParsed != null)
+               {
+                    if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
                     {
-                        parsedValue = true;
-                    }
-                    else if (strValue == "2") //TODO: replace with const
-                    {
-                        parsedValue = false;
-                    }
-                    else
-                    {
-                        throw new ArgumentException("You can only enter 1 for true OR 2 for false");
-                    }
+                         strValue = i_ValueToBeParsed as string;
+                         //TODO: check valid input
+                         if (strValue == "1") //TODO: replace with const
+                         {
+                              parsedValue = true;
+                         }
+                         else if (strValue == "2") //TODO: replace with const
+                         {
+                              parsedValue = false;
+                         }
+                         else
+                         {
+                              throw new ArgumentException("You can only enter 1 for true OR 2 for false");
+                         }
 
-                }
-                else //it's MaxLoad
-                {
-                    if (float.TryParse(strValue, out float tmpFloatHolder))
-                    {
-                        parsedValue = tmpFloatHolder;
                     }
-                    else
+                    else //it's MaxLoad
                     {
-                        throw new ArgumentException("You've got to enter a float");
+                         if (float.TryParse((string)i_ValueToBeParsed, out float tmpFloatHolder))
+                         {
+                              parsedValue = tmpFloatHolder;
+                         }
+                         else
+                         {
+                              throw new ArgumentException("You've got to enter a float");
+                         }
                     }
-                }
-            }
-            else
-            {
-                if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
-                {
-                    //TODO: check valid input
-                    parsedValue = IsContainingDangerousMaterials.ToString();
-                }
-                else //it's type maxLoad
-                {
-                    parsedValue = MaxLoad.ToString();
-                }
-            }
+               }
+               else
+               {
+                    if (Equals(i_PropertyToBeParsed, this.GetType().GetProperty("IsContainingDangerousMaterials")))
+                    {
+                         //TODO: check valid input
+                         parsedValue = IsContainingDangerousMaterials.ToString();
+                    }
+                    else //it's type maxLoad
+                    {
+                         parsedValue = MaxLoad.ToString();
+                    }
+               }
 
-            return parsedValue;
-        }
+               return parsedValue;
+          }
 
-        public override Vehicle DeepClone()
-        {
-            Truck newTruckClone = base.DeepClone() as Truck;
-            return newTruckClone;
-        }
+          public override Vehicle DeepClone()
+          {
+               Truck newTruckClone = base.DeepClone() as Truck;
+               return newTruckClone;
+          }
      }
 }

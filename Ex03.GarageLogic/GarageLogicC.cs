@@ -50,7 +50,7 @@ namespace Ex03.GarageLogic
                i_Vehicle.CurrentEngine.EnergyPercent = i_Input;
                i_Vehicle.CurrentEngine.CalcCurrentEnergy();
           }
-        
+
           public Vehicle CreateVehicle(Vehicle.eVehicleType i_Type)
           {
                return r_Factory.CreateVehicle(i_Type);
@@ -192,29 +192,29 @@ namespace Ex03.GarageLogic
 
                return uniqueProperties;
           }
-          
-           public List<PropertyInfo> GetVehiclesUniqueProperties(string i_LicenseNumber)
-        {
-             Vehicle copiedVehicle;
-             if (r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out copiedVehicle) == false)
-             {
-                  throw new KeyNotFoundException();
-             }
-             return GetVehiclesUniqueProperties(r_VehiclesInGarage[i_LicenseNumber]);
-        }
 
-        public Vehicle GetVehicleCopy(string i_ReadLine)
+          public List<PropertyInfo> GetVehiclesUniqueProperties(string i_LicenseNumber)
+          {
+               Vehicle copiedVehicle;
+               if (r_VehiclesInGarage.TryGetValue(i_LicenseNumber, out copiedVehicle) == false)
+               {
+                    throw new KeyNotFoundException();
+               }
+               return GetVehiclesUniqueProperties(r_VehiclesInGarage[i_LicenseNumber]);
+          }
+
+          public Vehicle GetVehicleCopy(string i_ReadLine)
           {
                if (r_VehiclesInGarage.TryGetValue(i_ReadLine, out Vehicle copiedVehicle) == false)
                {
-                throw new KeyNotFoundException(); 
+                    throw new KeyNotFoundException();
                }
                return copiedVehicle.DeepClone();
           }
 
-        public string GetStringPropertyValue(Vehicle i_ClonedVehicle, PropertyInfo i_VehiclesUniqueProperty)
-        {
-             return i_ClonedVehicle.AutonomicParser(i_VehiclesUniqueProperty, null) as string;
-        }
+          public string GetStringPropertyValue(Vehicle i_ClonedVehicle, PropertyInfo i_VehiclesUniqueProperty)
+          {
+               return i_ClonedVehicle.AutonomicParser(i_VehiclesUniqueProperty, null) as string;
+          }
      }
 }

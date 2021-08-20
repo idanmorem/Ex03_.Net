@@ -75,18 +75,18 @@ namespace Ex03.GarageLogic
           public abstract Type getUniqueType(string i_PropertyName); //<Enter number option, pick-able object
 
           public abstract object AutonomicParser(PropertyInfo i_PropertyToBeParsed, object valueToBeParsed);
-          
+
           public virtual Vehicle DeepClone()
           {
                Vehicle cloneVehicle = (Vehicle)this.MemberwiseClone();
-            int i = 0;
-            foreach (Wheel wheel in cloneVehicle.Wheels)
-            {
-                cloneVehicle.Wheels.CopyTo(this.Wheels, i);
-            }
+               int i = 0;
+               foreach (Wheel wheel in cloneVehicle.Wheels)
+               {
+                    cloneVehicle.Wheels.CopyTo(this.Wheels, i);
+               }
 
-            cloneVehicle.CurrentEngine = CurrentEngine.ShallowClone();
-            return cloneVehicle;
+               cloneVehicle.CurrentEngine = CurrentEngine.ShallowClone();
+               return cloneVehicle;
           }
      }
 }

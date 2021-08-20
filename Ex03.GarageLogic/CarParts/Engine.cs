@@ -7,10 +7,7 @@
           public float EnergyPercent
           {
                get => m_EnergyPercent;
-               set
-               {
-                    m_EnergyPercent = value;
-               }
+               set => m_EnergyPercent = value;
           }
 
           public abstract float CalcEnergyPercent();
@@ -25,7 +22,7 @@
                Fuel,
                Electric
           }
-          
+
           public Engine ShallowClone()
           {
                return this.MemberwiseClone() as Engine;
